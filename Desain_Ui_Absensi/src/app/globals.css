@@ -1,0 +1,144 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(48px);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes toast-in {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.anim-sheet {
+  animation: sheet-up 0.32s cubic-bezier(0.32, 0.9, 0.35, 1) both;
+}
+.anim-toast {
+  animation: toast-in 0.25s ease-out both;
+}
+.anim-fade {
+  animation: fade-in 0.2s ease-out both;
+}
+
+/* ---- splash / loading awal aplikasi ---- */
+@keyframes splash-pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.07);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes splash-rise {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes splash-ring {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+@keyframes splash-bar {
+  0% {
+    transform: translateX(-115%);
+  }
+  100% {
+    transform: translateX(330%);
+  }
+}
+.anim-splash-pop {
+  animation: splash-pop 0.7s cubic-bezier(0.3, 1.4, 0.4, 1) both;
+}
+.anim-splash-rise {
+  animation: splash-rise 0.6s ease-out both;
+}
+.anim-splash-ring {
+  animation: splash-ring 1.6s ease-out infinite;
+}
+.anim-splash-bar {
+  animation: splash-bar 1.15s ease-in-out infinite;
+}
+
+/* Di layar kecil, frame ponsel memenuhi layar (tanpa bezel ganda) */
+@media (max-width: 460px) {
+  .phone-outer {
+    width: 100% !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  .phone-screen {
+    border-radius: 0 !important;
+  }
+  .phone-btn {
+    display: none !important;
+  }
+  .stage {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+  .dynamic-island {
+    display: none !important;
+  }
+}
