@@ -203,14 +203,19 @@ Urutan yang disarankan setelah ADR disetujui:
 ```text
 Nuvora/
 ├── README.md
+├── LICENSE
 ├── docs/
 │   ├── PROJECT-CONTEXT.md          ← dokumen ini
 │   ├── adr/ADR-0001-stack-produksi.md
 │   ├── nuvora-pos-expansion-plan.md
 │   ├── gate-1-ui-prototype-report.md
 │   ├── Nuvora-Rebuild-Planning-Pack-v0.2.pdf
-│   └── UI Reference/
+│   └── ui-reference/
+│       ├── Aplikasi_Absen.png
+│       ├── Dashboard_Panel.png
+│       └── Kasir.png
 ├── prototype/
+│   ├── index.html
 │   ├── attendance.html
 │   ├── admin.html
 │   ├── pos.html
@@ -222,12 +227,14 @@ Nuvora/
 │       ├── common.js
 │       ├── admin.css
 │       ├── pos.css
+│       ├── attendance.css
 │       ├── base.css
-│       └── icons.svg
-└── Desain_Ui_Absensi/              ← sumber desain, read-only
+│       ├── icons.svg
+│       ├── nuvora-logo.jpg
+│       └── dina-avatar.svg
 ```
 
-File test DOM berada di `/tmp` (bukan bagian repo): `store-test.js`, `pos-dom-test.js`, `admin-dom-test.js`, `loyalty-dom-test.js`.
+Desain sumber Absensi sudah dihapus dari working tree pada 5 November 2026; riwayatnya tetap tersimpan di Git. File test DOM berada di `/tmp` (bukan bagian repo): `store-test.js`, `pos-dom-test.js`, `admin-dom-test.js`, `loyalty-dom-test.js`.
 
 ## 11. Menjalankan dan memverifikasi prototype
 

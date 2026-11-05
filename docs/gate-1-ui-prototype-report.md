@@ -10,7 +10,7 @@ Ruang lingkup: prototype UI lokal untuk Absensi Karyawan, Dashboard Admin, dan K
 
 Tiga area prototype sudah dapat dijalankan dari satu launcher:
 
-- Absensi Karyawan: mobile-first, tampilan di-port dari desain pemilik di `Desain_Ui_Absensi`; alur absensi masuk/pulang memakai selfie dan lokasi simulasi.
+- Absensi Karyawan: mobile-first, tampilan di-port dari desain pemilik (sumber desain tidak lagi disimpan di repo); alur absensi masuk/pulang memakai selfie dan lokasi simulasi.
 - Dashboard Admin: web, mencakup ringkasan, transaksi, produk, bahan/resep, stok/opname, karyawan, absensi, payroll, pengeluaran, laporan, audit, dan pengaturan/backup.
 - Kasir: layar desktop, mencakup produk, keranjang, jenis pesanan, pembayaran tunai/QRIS manual, struk, halaman riwayat, halaman sesi kas, halaman stok barang, serta simulasi offline dan antrean sinkronisasi.
 
@@ -37,7 +37,7 @@ Tidak ada proses build, package manager, atau dependency runtime. Prototype mema
 
 ### A. Absensi Karyawan (`attendance.html`)
 
-Tampilan di-port dari desain pemilik di `Desain_Ui_Absensi/src/components/AbsensiApp.tsx`. Struktur visual, teks, palet, splash, tiga tab, dan empat sheet dipertahankan dalam layout full-screen responsif tanpa frame atau tombol samping ponsel. Konten memakai lebar penuh di ponsel dan dibatasi 720px di layar besar; gutter, sheet, dan navigasi bawah menyesuaikan safe area. Skala tipografi diturunkan 20% melalui `--type-scale: 0.8`, dan seluruh ikon antarmuka memakai `--icon-scale: 0.8` agar proporsional di layar penuh. Logo memakai `prototype/assets/nuvora-logo.jpg` tanpa digambar ulang. Karena `dina-avatar.jpg` dari desain tidak tersedia di repo, avatar diganti placeholder SVG `prototype/assets/dina-avatar.svg`; ini satu-satunya penggantian aset visual.
+Tampilan di-port dari desain pemilik (sumber asli sudah dihapus dari repo; riwayatnya tersedia di Git). Struktur visual, teks, palet, splash, tiga tab, dan empat sheet dipertahankan dalam layout full-screen responsif tanpa frame atau tombol samping ponsel. Konten memakai lebar penuh di ponsel dan dibatasi 720px di layar besar; gutter, sheet, dan navigasi bawah menyesuaikan safe area. Skala tipografi diturunkan 20% melalui `--type-scale: 0.8`, dan seluruh ikon antarmuka memakai `--icon-scale: 0.8` agar proporsional di layar penuh. Logo memakai `prototype/assets/nuvora-logo.jpg` tanpa digambar ulang. Karena `dina-avatar.jpg` dari desain tidak tersedia di repo, avatar diganti placeholder SVG `prototype/assets/dina-avatar.svg`; ini satu-satunya penggantian aset visual.
 
 Layar: splash singkat (1,15 detik) dengan animasi yang diperhalus, Beranda, Riwayat, Profil, sheet Notifikasi, Lokasi Outlet, Jadwal Hari Ini, dan Absensi. Status bar mock tidak ditampilkan.
 
@@ -62,7 +62,7 @@ Batasan:
 - Koreksi absensi tetap tersedia sebagai alur demo di Dashboard Admin.
 - Jadwal, radius 100 m, dan koordinat adalah data demo.
 - Data bertahan selama tab browser hidup; tidak ada tombol reset karena desain tidak menyediakannya.
-- Aplikasi Next.js `Desain_Ui_Absensi` tidak dijalankan dan folder desain tidak diubah.
+- Aplikasi Next.js sumber desain tidak dijalankan; folder desain sudah dihapus dari repo.
 - Font Plus Jakarta Sans dimuat dari Google Fonts; tanpa koneksi internet, browser memakai fallback font sistem.
 
 ### B. Dashboard Admin (`admin.html`)
@@ -141,7 +141,6 @@ Dibuat:
 - `prototype/pos.html`
 - `prototype/assets/pos.css`
 - `prototype/assets/pos.js`
-- `prototype/screenshots/` (folder; belum berisi screenshot)
 - `docs/gate-1-ui-prototype-report.md` (laporan ini)
 
 Diubah:
@@ -149,7 +148,7 @@ Diubah:
 - `README.md` — instruksi menjalankan prototype dan status Gate.
 - `prototype/admin.html` — menambahkan `#topbarAvatar`, `#topbarUserName` untuk role preview, dan filter status Dibatalkan.
 - `prototype/assets/admin.js` — perbaikan filter antrean sync, status hasil review, dan aksi pembatalan transaksi lunas.
-- `prototype/attendance.html` — di-port dari desain pemilik `Desain_Ui_Absensi`.
+- `prototype/attendance.html` — di-port dari desain pemilik.
 - `prototype/assets/attendance.css` — ditulis ulang mengikuti visual desain pemilik.
 - `prototype/assets/attendance.js` — ditulis ulang untuk alur demo statis dan `sessionStorage`.
 - `prototype/assets/icons.svg` — menambahkan ikon `i-home-solid` dan `i-navigation`.
@@ -160,8 +159,7 @@ Diubah:
 Tidak diubah:
 
 - `docs/Nuvora-Rebuild-Planning-Pack-v0.2.pdf`
-- `docs/UI Reference/`
-- `Desain_Ui_Absensi/` (hanya dibaca sebagai sumber desain)
+- `docs/ui-reference/`
 - File atau konfigurasi produksi.
 
 ## 5. Traceability requirement
@@ -235,7 +233,7 @@ Hasil: `200` untuk keempat halaman. Semua aset CSS, JavaScript, ikon, logo, dan 
 
 - Uji interaktif browser dan screenshot otomatis belum dijalankan.
 - Chromium headless yang tersedia tidak dapat dieksekusi pada environment Alpine/musl ini. Tidak dilakukan instalasi browser atau dependency berat karena arahan pemilik.
-- Karena itu, screenshot Absensi HP, Dashboard Admin, dan Kasir **belum tersedia** di `prototype/screenshots/`. Pemilik akan memeriksa langsung di browser.
+- Karena itu, screenshot Absensi HP, Dashboard Admin, dan Kasir **belum tersedia**. Pemilik akan memeriksa langsung di browser.
 
 ## 8. Konflik dokumen yang perlu dicatat
 

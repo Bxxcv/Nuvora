@@ -33,7 +33,7 @@ Halaman langsung:
 
 Tidak ada build step atau dependency yang perlu dipasang.
 
-Absensi memakai desain dari `Desain_Ui_Absensi` (folder sumber tidak diubah) dengan layout full-screen tanpa frame ponsel, responsif dari layar kecil sampai desktop. Tab Riwayat punya filter bulan/status dan avatar karyawan per baris. Logo memakai `prototype/assets/nuvora-logo.jpg` as-is. Karena `dina-avatar.jpg` dari desain tidak tersedia, avatar demo memakai placeholder `prototype/assets/dina-avatar.svg`.
+Absensi di-port dari desain pemilik (sumber desain sudah dihapus dari repo; riwayatnya tetap tersimpan di Git) dengan layout full-screen tanpa frame ponsel, responsif dari layar kecil sampai desktop. Tab Riwayat punya filter bulan/status dan avatar karyawan per baris. Logo memakai `prototype/assets/nuvora-logo.jpg` as-is. Karena `dina-avatar.jpg` dari desain tidak tersedia, avatar demo memakai placeholder `prototype/assets/dina-avatar.svg`.
 
 Kasir memakai halaman penuh untuk Riwayat, Sesi kas, dan Stok barang. Modal sinkronisasi menampilkan persentase, spinner, dan pesan progres; kartu produk siap memakai foto asli jika data foto tersedia dan memakai ikon kategori sebagai fallback.
 
@@ -52,7 +52,6 @@ Kasir memakai halaman penuh untuk Riwayat, Sesi kas, dan Stok barang. Modal sink
 ## Sumber perencanaan
 
 - `docs/Nuvora-Rebuild-Planning-Pack-v0.2.pdf`
-- `docs/UI Reference/`
-- `Desain_Ui_Absensi/` — sumber desain Absensi dari pemilik (read-only).
+- `docs/ui-reference/` — mockup referensi visual.
 
 Jangan memulai backend, merge, deploy, atau mengubah data produksi tanpa persetujuan eksplisit pemilik.
