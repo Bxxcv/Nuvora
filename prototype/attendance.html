@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Nuvora Absensi - Demo</title>
+  <link rel="icon" type="image/jpeg" href="assets/nuvora-logo.jpg">
+  <link rel="stylesheet" href="assets/attendance.css?v=5">
+</head>
+<body>
+  <div class="stage">
+    <div class="phone-outer">
+      <div class="phone-screen">
+
+        <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+          <span class="toast-icon">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-check"></use></svg>
+          </span>
+          <span id="toastText">Absen masuk berhasil dicatat.</span>
+        </div>
+
+        <main class="app-scroll" id="appScroll">
+          <section class="view is-active" id="view-home" aria-label="Beranda absensi">
+            <div class="home-brand-row">
+              <div class="brand-block">
+                <span class="brand-logo-wrap">
+                  <img src="assets/nuvora-logo.jpg" alt="Logo Nuvora" class="brand-logo">
+                </span>
+                <span class="brand-copy">
+                  <span class="brand-name">Nuvora</span>
+                  <span class="brand-sub">Absensi</span>
+                </span>
+              </div>
+              <button class="icon-button bell-button" id="openNotif" type="button" aria-label="Buka notifikasi">
+                <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bell"></use></svg>
+                <span class="notification-dot" aria-hidden="true"></span>
+              </button>
+            </div>
+
+            <div class="home-divider"></div>
+
+            <div class="home-content">
+              <div class="profile-summary">
+                <img src="assets/dina-avatar.svg" alt="Avatar demo Dina Pratama" class="avatar-large">
+                <div class="profile-summary-copy">
+                  <p class="profile-name">Dina Pratama</p>
+                  <p class="profile-role">Karyawan</p>
+                </div>
+                <p class="home-date">Jumat,<br>30 Okt 2026</p>
+              </div>
+
+              <div class="status-card">
+                <span class="status-card-icon">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-clock"></use></svg>
+                </span>
+                <div class="status-card-copy">
+                  <p class="status-label">Status Kehadiran</p>
+                  <p class="status-value" id="statusText">Belum Absen</p>
+                  <p class="status-detail" id="statusDetail" hidden></p>
+                </div>
+              </div>
+
+              <button class="attendance-button" id="primaryAttendanceBtn" type="button" aria-label="Absen masuk">
+                <span class="attendance-button-main">
+                  <svg class="attendance-camera" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4ZM9 2 7.17 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3.17L15 2H9Zm3 15.2a5.2 5.2 0 1 1 0-10.4 5.2 5.2 0 0 1 0 10.4Z" fill="currentColor"/>
+                  </svg>
+                  <svg class="attendance-check" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                  <span id="primaryAttendanceLabel">Absen Masuk</span>
+                </span>
+                <span class="attendance-button-divider" aria-hidden="true"></span>
+                <span class="attendance-button-pin">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a7.4 7.4 0 0 0-7.4 7.4c0 5.5 7.4 12.6 7.4 12.6s7.4-7.1 7.4-12.6A7.4 7.4 0 0 0 12 2Zm0 10a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Z" fill="currentColor"/>
+                  </svg>
+                </span>
+              </button>
+
+              <h2 class="section-title">Persyaratan Absen</h2>
+              <div class="requirements-row">
+                <div class="requirement">
+                  <span class="requirement-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4ZM9 2 7.17 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3.17L15 2H9Zm3 15.2a5.2 5.2 0 1 1 0-10.4 5.2 5.2 0 0 1 0 10.4Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  <span class="requirement-copy">
+                    <strong>Selfie diperlukan</strong>
+                    <span>Pastikan wajah terlihat jelas</span>
+                  </span>
+                </div>
+                <span class="requirements-divider" aria-hidden="true"></span>
+                <div class="requirement">
+                  <span class="requirement-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 2a7.4 7.4 0 0 0-7.4 7.4c0 5.5 7.4 12.6 7.4 12.6s7.4-7.1 7.4-12.6A7.4 7.4 0 0 0 12 2Zm0 10a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                  <span class="requirement-copy">
+                    <strong>Lokasi diperlukan</strong>
+                    <span>Hanya di area outlet</span>
+                  </span>
+                </div>
+              </div>
+
+              <button class="location-card" id="openLocation" type="button">
+                <span class="location-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2a7.4 7.4 0 0 0-7.4 7.4c0 5.5 7.4 12.6 7.4 12.6s7.4-7.1 7.4-12.6A7.4 7.4 0 0 0 12 2Zm0 10a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Z" fill="currentColor"/>
+                  </svg>
+                </span>
+                <span class="location-copy">
+                  <strong>Lokasi outlet terdeteksi</strong>
+                  <span>Jl. Melati No. 12, Yogyakarta</span>
+                </span>
+                <svg class="icon location-chevron" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </button>
+
+              <h2 class="section-title">Jadwal Hari Ini</h2>
+              <button class="schedule-card" id="openSchedule" type="button">
+                <span class="schedule-icon">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar-days"></use></svg>
+                </span>
+                <span class="schedule-copy">
+                  <strong>Shift Pagi</strong>
+                  <span>08.00 &ndash; 16.00</span>
+                </span>
+                <svg class="icon location-chevron" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </button>
+
+              <div class="section-heading-row">
+                <h2 class="section-title section-title-inline">Riwayat Absensi</h2>
+                <button class="text-button" id="goHistory" type="button">Lihat Semua</button>
+              </div>
+              <div class="history-list" id="homeHistory"></div>
+            </div>
+          </section>
+
+          <section class="view" id="view-history" aria-label="Riwayat absensi">
+            <div class="page-header">
+              <button class="icon-button back-button" id="backHome" type="button" aria-label="Kembali ke beranda">
+                <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron-left"></use></svg>
+              </button>
+              <div>
+                <h1 class="page-title">Riwayat Absensi</h1>
+                <p class="page-subtitle">Dina Pratama &bull; Outlet Yogyakarta</p>
+              </div>
+            </div>
+
+            <div class="history-filter-card">
+              <div class="history-filter-top">
+                <label class="history-month-field" for="historyMonth">
+                  <span class="history-filter-label">Bulan</span>
+                  <span class="history-select-wrap">
+                    <select class="history-select" id="historyMonth" aria-label="Filter bulan absensi">
+                      <option value="all">Semua bulan</option>
+                      <option value="2026-10" selected>Oktober 2026</option>
+                      <option value="2026-09">September 2026</option>
+                      <option value="2026-08">Agustus 2026</option>
+                    </select>
+                    <svg class="icon history-select-chevron" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+                  </span>
+                </label>
+                <p class="history-filter-summary" id="historyFilterSummary" aria-live="polite">0 catatan</p>
+              </div>
+              <div class="history-status-chips" id="historyStatusFilter" role="group" aria-label="Filter status absensi">
+                <button class="history-chip is-active" type="button" data-status="all" aria-pressed="true">Semua</button>
+                <button class="history-chip" type="button" data-status="Hadir" aria-pressed="false">Hadir</button>
+                <button class="history-chip" type="button" data-status="Terlambat" aria-pressed="false">Terlambat</button>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <p class="stat-value" id="statHadir">0</p>
+                <p class="stat-label">Hadir</p>
+              </div>
+              <div class="stat-card stat-card-late">
+                <p class="stat-value" id="statLate">0</p>
+                <p class="stat-label">Terlambat</p>
+              </div>
+              <div class="stat-card stat-card-muted">
+                <p class="stat-value" id="statTotal">0</p>
+                <p class="stat-label">Total Hari</p>
+              </div>
+            </div>
+
+            <div class="history-block" id="todayBlock" hidden>
+              <p class="eyebrow">Hari Ini</p>
+              <div class="history-list history-list-boxed" id="todayHistory"></div>
+            </div>
+
+            <div class="history-block">
+              <p class="eyebrow">Sebelumnya</p>
+              <div class="history-list history-list-boxed" id="fullHistory"></div>
+            </div>
+          </section>
+
+          <section class="view" id="view-profile" aria-label="Profil karyawan">
+            <h1 class="page-title profile-page-title">Profil</h1>
+
+            <div class="profile-hero">
+              <span class="profile-avatar-ring">
+                <img src="assets/dina-avatar.svg" alt="Avatar demo Dina Pratama" class="profile-avatar-large">
+              </span>
+              <p class="profile-hero-name">Dina Pratama</p>
+              <p class="profile-hero-role">Karyawan &bull; ID NV-2026-014</p>
+              <span class="profile-outlet">Outlet Jl. Melati No. 12, Yogyakarta</span>
+            </div>
+
+            <div class="profile-menu">
+              <button class="profile-menu-item" type="button" data-demo-menu="Data Karyawan">
+                <span class="profile-menu-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-shield"></use></svg></span>
+                <span class="profile-menu-copy"><strong>Data Karyawan</strong><span>NIK, jabatan &amp; kontak</span></span>
+                <svg class="icon profile-menu-chevron" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </button>
+              <button class="profile-menu-item" type="button" data-demo-menu="Jadwal Saya">
+                <span class="profile-menu-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar-days"></use></svg></span>
+                <span class="profile-menu-copy"><strong>Jadwal Saya</strong><span>Shift Pagi &bull; 08.00 &ndash; 16.00</span></span>
+                <svg class="icon profile-menu-chevron" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </button>
+              <button class="profile-menu-item" type="button" data-demo-menu="Pengajuan Izin / Cuti">
+                <span class="profile-menu-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-file-text"></use></svg></span>
+                <span class="profile-menu-copy"><strong>Pengajuan Izin / Cuti</strong><span>Ajukan izin baru</span></span>
+                <svg class="icon profile-menu-chevron" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </button>
+              <button class="profile-menu-item" type="button" data-demo-menu="Pengaturan">
+                <span class="profile-menu-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-settings"></use></svg></span>
+                <span class="profile-menu-copy"><strong>Pengaturan</strong><span>Notifikasi &amp; keamanan akun</span></span>
+                <svg class="icon profile-menu-chevron" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+              </button>
+            </div>
+
+            <button class="logout-button" id="logoutButton" type="button">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-log-out"></use></svg>
+              <span>Keluar Akun</span>
+            </button>
+
+            <p class="demo-footer">Nuvora Absensi v1.0.0</p>
+          </section>
+        </main>
+
+        <nav class="bottom-nav" id="bottomNav" aria-label="Navigasi utama">
+          <button class="nav-item is-active" type="button" data-tab="home" aria-label="Beranda" aria-current="page">
+            <svg class="nav-icon nav-icon-home" aria-hidden="true"><use href="assets/icons.svg#i-home-solid"></use></svg>
+            <span class="nav-label">Beranda</span>
+            <span class="nav-indicator" aria-hidden="true"></span>
+          </button>
+          <button class="nav-item" type="button" data-tab="history" aria-label="Riwayat">
+            <svg class="nav-icon" aria-hidden="true"><use href="assets/icons.svg#i-clock"></use></svg>
+            <span class="nav-label">Riwayat</span>
+            <span class="nav-indicator" aria-hidden="true"></span>
+          </button>
+          <button class="nav-item" type="button" data-tab="profile" aria-label="Profil">
+            <svg class="nav-icon" aria-hidden="true"><use href="assets/icons.svg#i-user"></use></svg>
+            <span class="nav-label">Profil</span>
+            <span class="nav-indicator" aria-hidden="true"></span>
+          </button>
+        </nav>
+
+        <div class="sheet-root" id="sheetRoot" hidden>
+          <button class="sheet-backdrop" id="sheetBackdrop" type="button" aria-label="Tutup panel"></button>
+          <div class="sheet-panel" role="dialog" aria-modal="true" aria-label="Panel absensi">
+            <span class="sheet-handle" aria-hidden="true"></span>
+
+            <div class="sheet-content" id="sheetNotif">
+              <div class="sheet-header">
+                <h2 class="sheet-title">Notifikasi</h2>
+                <button class="icon-button sheet-close" type="button" data-close-sheet aria-label="Tutup notifikasi">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg>
+                </button>
+              </div>
+              <div class="notification-list">
+                <div class="notification-item">
+                  <span class="notification-item-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bell"></use></svg></span>
+                  <div><strong>Pengingat absen masuk</strong><p>Shift Pagi dimulai pukul 08.00. Jangan lupa selfie di area outlet.</p><time>07:30</time></div>
+                </div>
+                <div class="notification-item">
+                  <span class="notification-item-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bell"></use></svg></span>
+                  <div><strong>Jadwal besok terbit</strong><p>Sabtu, 31 Okt 2026 &mdash; Shift Pagi 08.00 &ndash; 16.00 di Outlet Yogyakarta.</p><time>Kemarin</time></div>
+                </div>
+                <div class="notification-item">
+                  <span class="notification-item-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bell"></use></svg></span>
+                  <div><strong>Absensi kemarin tercatat</strong><p>Kamis, 29 Okt 2026 &mdash; Masuk 07:58, Pulang 16:05 (Hadir).</p><time>Kemarin</time></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sheet-content" id="sheetLocation">
+              <div class="sheet-header">
+                <h2 class="sheet-title">Lokasi Outlet</h2>
+                <button class="icon-button sheet-close" type="button" data-close-sheet aria-label="Tutup lokasi">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg>
+                </button>
+              </div>
+              <div class="map-card">
+                <svg viewBox="0 0 340 190" class="map-art" preserveAspectRatio="none" aria-hidden="true">
+                  <rect width="340" height="190" fill="#e7f0e4"/>
+                  <path d="M-10 130 C70 110 130 150 210 128 S320 96 360 108 L360 190 L-10 190Z" fill="#dcead9"/>
+                  <path d="M-10 62 H360 M60 -10 V200 M170 -10 V200 M268 -10 V200" stroke="#ffffff" stroke-width="13"/>
+                  <path d="M-10 62 H360 M60 -10 V200 M170 -10 V200 M268 -10 V200" stroke="#d4dee2" stroke-width="1.4" stroke-dasharray="8 7"/>
+                  <circle cx="176" cy="96" r="44" fill="#1588b8" fill-opacity="0.13"/>
+                </svg>
+                <span class="map-pin" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2a7.4 7.4 0 0 0-7.4 7.4c0 5.5 7.4 12.6 7.4 12.6s7.4-7.1 7.4-12.6A7.4 7.4 0 0 0 12 2Zm0 10a2.7 2.7 0 1 1 0-5.4 2.7 2.7 0 0 1 0 5.4Z"/>
+                  </svg>
+                </span>
+                <span class="map-label">Radius absen 100 m</span>
+              </div>
+              <div class="detail-list">
+                <div class="detail-row"><span>Outlet</span><strong>Yogyakarta &mdash; Melati</strong></div>
+                <div class="detail-row"><span>Alamat</span><strong class="detail-address">Jl. Melati No. 12</strong></div>
+                <div class="detail-row"><span>Koordinat</span><strong>-7.7956, 110.3695</strong></div>
+                <div class="detail-row"><span>Status GPS</span><span class="detail-badge">Di dalam area outlet</span></div>
+              </div>
+              <button class="primary-button" type="button" data-close-sheet>Mengerti</button>
+            </div>
+
+            <div class="sheet-content" id="sheetSchedule">
+              <div class="sheet-header">
+                <h2 class="sheet-title">Jadwal Hari Ini</h2>
+                <button class="icon-button sheet-close" type="button" data-close-sheet aria-label="Tutup jadwal">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg>
+                </button>
+              </div>
+              <div class="shift-card">
+                <p class="shift-date">Jumat, 30 Okt 2026</p>
+                <p class="shift-name">Shift Pagi</p>
+                <p class="shift-time">08.00 &ndash; 16.00 &bull; 8 jam kerja</p>
+              </div>
+              <div class="detail-list">
+                <div class="detail-row"><span>Toleransi keterlambatan</span><strong>15 menit</strong></div>
+                <div class="detail-row"><span>Istirahat</span><strong>12.00 &ndash; 13.00</strong></div>
+                <div class="detail-row"><span>Lokasi</span><strong>Outlet Yogyakarta</strong></div>
+              </div>
+              <button class="primary-button" type="button" data-close-sheet>Mengerti</button>
+            </div>
+
+            <div class="sheet-content" id="sheetAttendance">
+              <div class="sheet-header">
+                <h2 class="sheet-title" id="attendanceSheetTitle">Absen Masuk</h2>
+                <button class="icon-button sheet-close" type="button" data-close-sheet aria-label="Tutup absensi">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg>
+                </button>
+              </div>
+              <p class="sheet-description" id="attendanceSheetSubtitle">Ambil selfie dan pastikan lokasi Anda terdeteksi di area outlet.</p>
+
+              <div class="camera-preview" id="cameraPreview">
+                <img src="assets/dina-avatar.svg" alt="Pratinjau selfie demo" class="selfie-image" id="selfieImage">
+                <span class="camera-frame" aria-hidden="true"></span>
+                <span class="camera-status" id="cameraStatus">Kamera tidak tersedia &mdash; memakai foto profil</span>
+              </div>
+
+              <div class="attendance-location-row">
+                <span class="location-icon">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-navigation"></use></svg>
+                </span>
+                <span class="attendance-location-copy">
+                  <span>Lokasi outlet terdeteksi</span>
+                  <strong>-7.79560, 110.36950 &bull; Jl. Melati No. 12, Yogyakarta</strong>
+                </span>
+                <span class="verified-badge">Valid</span>
+              </div>
+
+              <button class="capture-button" id="captureButton" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4ZM9 2 7.17 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3.17L15 2H9Zm3 15.2a5.2 5.2 0 1 1 0-10.4 5.2 5.2 0 0 1 0 10.4Z" fill="currentColor"/>
+                </svg>
+                <span>Ambil Selfie</span>
+              </button>
+
+              <div class="captured-actions" id="capturedActions" hidden>
+                <button class="secondary-button" id="retakeButton" type="button">Ambil Ulang</button>
+                <button class="primary-button" id="confirmAttendance" type="button">Konfirmasi Absen</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="splash" id="splash" aria-label="Memuat Nuvora Absensi">
+          <div class="splash-mark">
+            <span class="splash-ring" aria-hidden="true"></span>
+            <span class="splash-ring splash-ring-delayed" aria-hidden="true"></span>
+            <img src="assets/nuvora-logo.jpg" alt="Logo Nuvora" class="splash-logo">
+          </div>
+          <p class="splash-name splash-rise" style="animation-delay: .25s">Nuvora</p>
+          <p class="splash-sub splash-rise" style="animation-delay: .35s">Absensi</p>
+          <div class="splash-progress splash-rise" style="animation-delay: .45s" aria-hidden="true"><span></span></div>
+          <p class="splash-status splash-rise" style="animation-delay: .55s">Menyiapkan absensi&hellip;</p>
+          <p class="splash-version">Nuvora Absensi v1.0.0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/attendance.js?v=5"></script>
+</body>
+</html>

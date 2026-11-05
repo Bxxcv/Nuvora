@@ -1,0 +1,1106 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#041f33">
+  <title>Nuvora Admin — Prototype</title>
+  <link rel="icon" href="assets/nuvora-logo.jpg">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/admin.css?v=3">
+</head>
+<body class="admin-body">
+  <div class="admin-shell">
+    <aside class="sidebar" id="adminSidebar" aria-label="Navigasi admin">
+      <a class="sidebar-brand" href="index.html" aria-label="Kembali ke pemilih prototype">
+        <span class="logo-badge"><img src="assets/nuvora-logo.jpg" alt="Logo Nuvora"></span>
+        <span>
+          <span class="brand-name">Nuvora</span>
+          <span class="brand-sub">POS &amp; Management</span>
+        </span>
+      </a>
+
+      <button class="sidebar-outlet" type="button" data-demo-only="disabled" data-demo-message="Pemilih outlet aktif setelah ada lebih dari satu outlet dan aturan aksesnya.">
+        <span class="outlet-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-store"></use></svg></span>
+        <span><span>Outlet aktif</span><b>Outlet Melati</b></span>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+      </button>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group-label">Operasional</div>
+        <button class="nav-item active" type="button" data-page="ringkasan">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-home"></use></svg> Ringkasan
+        </button>
+        <button class="nav-item" type="button" data-page="penjualan">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-receipt"></use></svg> Penjualan
+          <span class="nav-count">86</span>
+        </button>
+        <button class="nav-item" type="button" data-page="produk">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-utensils"></use></svg> Produk &amp; Menu
+        </button>
+        <button class="nav-item" type="button" data-page="bahan">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-flask"></use></svg> Bahan &amp; Resep
+        </button>
+        <button class="nav-item" type="button" data-page="stok">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-boxes"></use></svg> Stok &amp; Opname
+          <span class="nav-count" style="background:var(--warning-bg);color:var(--warning)">4</span>
+        </button>
+
+        <div class="nav-group-label">Pelanggan</div>
+        <button class="nav-item" type="button" data-page="pelanggan">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-badge-check"></use></svg> Pelanggan &amp; Loyalitas
+        </button>
+
+        <div class="nav-group-label">Tim</div>
+        <button class="nav-item" type="button" data-page="karyawan">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-users"></use></svg> Karyawan
+        </button>
+        <button class="nav-item" type="button" data-page="absensi">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar-days"></use></svg> Jadwal &amp; Absensi
+        </button>
+        <button class="nav-item" type="button" data-page="payroll" data-restricted="kasir">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wallet"></use></svg> Payroll
+          <svg class="icon nav-lock" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg>
+        </button>
+
+        <div class="nav-group-label">Keuangan</div>
+        <button class="nav-item" type="button" data-page="pengeluaran">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-banknote"></use></svg> Pengeluaran
+        </button>
+        <button class="nav-item" type="button" data-page="laporan">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-chart"></use></svg> Laporan
+        </button>
+
+        <div class="nav-group-label">Sistem</div>
+        <button class="nav-item" type="button" data-page="audit" data-restricted="kasir">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-history"></use></svg> Audit Log
+          <svg class="icon nav-lock" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg>
+        </button>
+        <button class="nav-item" type="button" data-page="pengaturan" data-restricted="kasir">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-settings"></use></svg> Pengaturan &amp; Backup
+          <svg class="icon nav-lock" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg>
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <strong>Prototype Gate 1 · v0.1</strong>
+        Data demo. Tidak ada koneksi server, database, atau akun nyata.
+      </div>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <button class="icon-btn menu-btn" type="button" id="sidebarToggle" aria-label="Buka navigasi">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-menu"></use></svg>
+        </button>
+        <div class="topbar-crumb">
+          <span>Outlet Melati</span>
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+          <b id="crumbCurrent">Ringkasan</b>
+        </div>
+        <div class="search-box global-search">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
+          <input class="input" id="globalSearchInput" type="text" placeholder="Cari menu, transaksi, pelanggan..." aria-label="Pencarian global">
+          <span class="kbd">Ctrl K</span>
+        </div>
+        <div class="topbar-divider"></div>
+        <label class="role-preview">
+          Lihat sebagai
+          <select class="select" id="rolePreview" aria-label="Simulasi tampilan role">
+            <option value="admin">Admin</option>
+            <option value="kasir">Kasir</option>
+          </select>
+        </label>
+        <button class="icon-btn" type="button" data-open-dialog="searchDialog" aria-label="Pencarian dan notifikasi" style="position:relative">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bell"></use></svg>
+          <span class="dot"></span>
+        </button>
+        <div class="topbar-user">
+          <div class="avatar" id="topbarAvatar" aria-hidden="true">AD</div>
+          <div class="topbar-user-name"><span id="topbarUserName">Admin Demo</span><span class="topbar-user-role" id="topbarRoleLabel">Akses penuh · simulasi</span></div>
+        </div>
+      </header>
+
+      <div class="demo-strip" role="note">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+        <span><strong>Data demo.</strong> Angka, nama, transaksi, dan status adalah contoh. Tidak ada data outlet nyata.</span>
+        <span class="badge badge-demo" style="margin-left:auto">Gate 1</span>
+      </div>
+
+      <main class="admin-content">
+        <!-- RINGKASAN -->
+        <section class="admin-page active" data-page="ringkasan" data-title="Ringkasan" aria-labelledby="adminHomeTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="adminHomeTitle">Ringkasan operasional</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Jumat, 30 Oktober 2026 · Outlet Melati · terakhir sinkron 2 menit lalu</p>
+            </div>
+            <div class="page-head-actions">
+              <span class="date-control"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar"></use></svg> 1–30 Okt 2026</span>
+              <button class="btn btn-outline btn-sm" type="button" data-page-link="laporan">Lihat laporan</button>
+            </div>
+          </div>
+
+          <div class="triage" role="status">
+            <div class="triage-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg></div>
+            <div class="triage-body">
+              <span class="triage-title">Perlu ditinjau hari ini</span>
+              <div class="triage-items">
+                <button class="triage-item" type="button" data-page-link="stok"><span class="dot dot-warning"></span><b>4</b> bahan menipis</button>
+                <button class="triage-item" type="button" data-page-link="penjualan"><span class="dot dot-info"></span><b>2</b> transaksi menunggu sync</button>
+                <button class="triage-item" type="button" data-page-link="absensi"><span class="dot dot-danger"></span><b>1</b> koreksi absensi</button>
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm" type="button" data-page-link="laporan">Tinjau semua</button>
+          </div>
+
+          <div class="dash-grid">
+            <div class="dash-col">
+              <article class="card dash-sales" aria-labelledby="salesTitle">
+                <div class="sales-head">
+                  <div>
+                    <div class="sales-label" id="salesTitle">Penjualan bulan ini</div>
+                    <div class="sales-value">Rp 2.450.000</div>
+                    <div class="sales-meta"><span>86 transaksi</span><span class="up">+12% dari bulan lalu</span><span>· rata-rata Rp 28.488</span></div>
+                  </div>
+                  <div class="segmented" role="group" aria-label="Rentang grafik">
+                    <button type="button" aria-pressed="true">30 hari</button>
+                    <button type="button" aria-pressed="false" data-demo-only="disabled" data-demo-message="Perbandingan rentang lain belum aktif pada prototype.">Bulan lalu</button>
+                  </div>
+                </div>
+                <div class="sales-chart" role="img" aria-label="Grafik tren penjualan 1 sampai 30 Oktober, data demo">
+                  <svg viewBox="0 0 620 130" preserveAspectRatio="none" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="salesFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#0a9dbf" stop-opacity="0.18"/>
+                        <stop offset="100%" stop-color="#0a9dbf" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <g stroke="#e6eef1" stroke-width="1">
+                      <line x1="0" y1="22" x2="620" y2="22"/>
+                      <line x1="0" y1="52" x2="620" y2="52"/>
+                      <line x1="0" y1="82" x2="620" y2="82"/>
+                      <line x1="0" y1="112" x2="620" y2="112"/>
+                    </g>
+                    <path d="M0,92 L22,88 L44,78 L66,84 L88,70 L110,76 L132,71 L154,64 L176,72 L198,80 L220,78 L242,65 L264,70 L286,62 L308,76 L330,96 L352,91 L374,83 L396,68 L418,74 L440,61 L462,69 L484,66 L506,82 L528,94 L550,92 L572,72 L594,57 L620,39 L620,130 L0,130 Z" fill="url(#salesFill)"/>
+                    <path d="M0,92 L22,88 L44,78 L66,84 L88,70 L110,76 L132,71 L154,64 L176,72 L198,80 L220,78 L242,65 L264,70 L286,62 L308,76 L330,96 L352,91 L374,83 L396,68 L418,74 L440,61 L462,69 L484,66 L506,82 L528,94 L550,92 L572,72 L594,57 L620,39" fill="none" stroke="#0a9dbf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="440" cy="61" r="4" fill="#fff" stroke="#0a9dbf" stroke-width="2.5"/>
+                    <circle cx="620" cy="39" r="4" fill="#fff" stroke="#0a9dbf" stroke-width="2.5"/>
+                  </svg>
+                </div>
+                <div class="chart-labels"><span>1 Okt</span><span>8 Okt</span><span>15 Okt</span><span>22 Okt</span><span>30 Okt</span></div>
+                <div class="pay-split">
+                  <div class="pay-split-item">
+                    <div class="pay-split-head"><span class="sq"></span> Tunai</div>
+                    <b>Rp 1.320.000</b>
+                    <div class="pay-split-bar"><i class="cash" style="width:54%"></i></div>
+                  </div>
+                  <div class="pay-split-item">
+                    <div class="pay-split-head"><span class="sq"></span> QRIS manual</div>
+                    <b>Rp 1.130.000</b>
+                    <div class="pay-split-bar"><i class="qris" style="width:46%"></i></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="card table-panel" aria-labelledby="recentTitle">
+                <div class="panel-head">
+                  <div><h2 id="recentTitle">Transaksi terbaru</h2><p class="card-sub">Termasuk 2 transaksi offline yang belum tersinkron</p></div>
+                  <button class="link-btn" type="button" data-page-link="penjualan">Lihat semua <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg></button>
+                </div>
+                <div class="table-wrap">
+                  <table class="table">
+                    <thead><tr><th>Waktu</th><th>No. order</th><th>Jenis</th><th>Pembayaran</th><th>Status</th><th class="num">Total</th></tr></thead>
+                    <tbody id="recentTransactions"></tbody>
+                  </table>
+                </div>
+              </article>
+            </div>
+
+            <div class="dash-col side">
+              <article class="card" aria-labelledby="actionsTitle">
+                <div class="panel-head">
+                  <h2 id="actionsTitle">Perlu tindakan</h2>
+                  <span class="badge badge-warning">3</span>
+                </div>
+                <div class="action-list">
+                  <button class="action-item" type="button" data-page-link="stok">
+                    <span class="action-icon tone-warning"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-boxes"></use></svg></span>
+                    <span><h3>Stok ayam menipis</h3><p>Tersisa 2 kg dari minimum 5 kg. Perlu restock atau penyesuaian.</p><span class="action-meta">Stok · 2 jam lalu</span></span>
+                    <svg class="icon chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+                  </button>
+                  <button class="action-item" type="button" data-page-link="penjualan">
+                    <span class="action-icon tone-info"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-cloud-off"></use></svg></span>
+                    <span><h3>2 transaksi menunggu sinkronisasi</h3><p>Tersimpan lokal di kasir. Jangan hapus antrean sebelum server mengonfirmasi.</p><span class="action-meta">Offline · 14 menit lalu</span></span>
+                    <svg class="icon chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+                  </button>
+                  <button class="action-item" type="button" data-page-link="absensi">
+                    <span class="action-icon tone-danger"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar-days"></use></svg></span>
+                    <span><h3>Koreksi absensi menunggu review</h3><p>Dina Pratama mengajukan koreksi pulang 29 Oktober.</p><span class="action-meta">Absensi · 1 jam lalu</span></span>
+                    <svg class="icon chev" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+                  </button>
+                </div>
+              </article>
+
+              <article class="card cash-card" aria-labelledby="cashTitle">
+                <div class="cash-head">
+                  <h2 id="cashTitle">Sesi kas aktif</h2>
+                  <span class="cash-status"><span class="pill-dot"></span> Shift Sari · 08.00</span>
+                </div>
+                <div class="cash-line"><span>Kas awal</span><b>Rp 300.000</b></div>
+                <div class="cash-line"><span>Penjualan tunai</span><b>Rp 1.320.000</b></div>
+                <div class="cash-line"><span>QRIS manual</span><b>Rp 1.130.000</b></div>
+                <div class="cash-line"><span>Pengeluaran</span><b>− Rp 45.000</b></div>
+                <div class="cash-line total"><span>Kas seharusnya</span><b>Rp 1.575.000</b></div>
+                <div class="cash-foot">
+                  <span class="badge badge-warning">Belum dihitung fisik</span>
+                  <span class="badge badge-neutral">QRIS terpisah dari laci</span>
+                </div>
+              </article>
+
+              <article class="card" aria-labelledby="syncTitle">
+                <div class="panel-head"><h2 id="syncTitle">Status operasional</h2><span class="badge badge-live"><span class="pill-dot"></span> Demo</span></div>
+                <div class="action-list">
+                  <div class="action-item" style="cursor:default">
+                    <span class="action-icon tone-success"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-cloud"></use></svg></span>
+                    <span><h3>Dashboard online</h3><p>Data terakhir diterima 2 menit lalu.</p></span>
+                  </div>
+                  <div class="action-item" style="cursor:default">
+                    <span class="action-icon tone-warning"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wifi-off"></use></svg></span>
+                    <span><h3>Kasir sedang offline</h3><p>2 transaksi tertahan di perangkat kasir.</p></span>
+                  </div>
+                  <div class="action-item" style="cursor:default">
+                    <span class="action-icon tone-neutral"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-database"></use></svg></span>
+                    <span><h3>Backup terakhir</h3><p>29 Okt 2026, 23.00 · belum diuji restore.</p></span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- PENJUALAN -->
+        <section class="admin-page" data-page="penjualan" data-title="Penjualan" aria-labelledby="salesPageTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="salesPageTitle">Penjualan &amp; transaksi</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Cari transaksi, periksa snapshot, dan tinjau status pembayaran/sinkronisasi.</p>
+            </div>
+            <div class="page-head-actions">
+              <span class="date-control" id="txPeriodLabel"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar"></use></svg> Semua bulan</span>
+              <button class="btn btn-outline btn-sm" type="button" data-demo-only="disabled" data-demo-message="Ekspor transaksi belum aktif pada prototype; definisi laporan belum final.">Ekspor</button>
+            </div>
+          </div>
+          <div class="notice notice-info" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+            <span><strong>Snapshot transaksi:</strong> nama, harga, dan diskon disimpan saat transaksi dibuat. Perubahan master menu tidak mengubah riwayat lama (POS-004). <strong>Data lama:</strong> daftar dibatasi per bulan dan halaman; aturan arsip produksi belum final.</span>
+          </div>
+          <article class="table-panel">
+            <div class="table-panel-head">
+              <div><h2>Daftar transaksi</h2><p id="txCountLabel">Memuat transaksi…</p></div>
+              <div class="table-toolbar">
+                <div class="search-box">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
+                  <input class="input" type="text" id="txSearch" placeholder="Cari no. order atau kasir" aria-label="Cari transaksi">
+                </div>
+                <select class="select" id="txMonthFilter" aria-label="Filter bulan transaksi">
+                  <option value="all" selected>Semua bulan</option>
+                  <option value="2026-11">Nov 2026</option>
+                  <option value="2026-10">Okt 2026</option>
+                  <option value="2026-09">Sep 2026</option>
+                  <option value="2026-08">Agu 2026</option>
+                </select>
+                <select class="select" id="txStatusFilter" aria-label="Filter status pembayaran">
+                  <option value="all">Semua status</option>
+                  <option value="lunas">Lunas</option>
+                  <option value="pending">Menunggu sync</option>
+                  <option value="void">Dibatalkan</option>
+                  <option value="refund">Refund</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Waktu</th><th>No. order</th><th>Kasir</th><th>Jenis</th><th>Pembayaran</th><th>Status</th><th>Sinkron</th><th class="num">Total</th><th></th></tr></thead>
+                <tbody id="transactionsBody"></tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span id="txFooterLabel">Memuat transaksi…</span>
+              <div class="pager" id="txPager" aria-label="Navigasi halaman transaksi"></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="admin-page" data-page="pelanggan" data-title="Pelanggan & Loyalitas" aria-labelledby="memberPageTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="memberPageTitle">Pelanggan &amp; loyalitas</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Kelola pelanggan, saldo poin, dan aturan loyalitas yang dipakai POS.</p>
+            </div>
+            <div class="page-head-actions">
+              <span class="badge badge-live" id="loyaltyStatusBadge"><span class="pill-dot"></span> Loyalitas aktif</span>
+              <button class="btn btn-primary btn-sm" type="button" data-open-dialog="memberDialog"><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-user-plus"></use></svg> Tambah pelanggan</button>
+            </div>
+          </div>
+          <div class="notice notice-info" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+            <span><strong>Aturan demo:</strong> 1 poin per <b id="loyaltyEarnHint">Rp 1.000</b> belanja; <b id="loyaltyRedeemHint">100 poin = Rp 10.000</b>. Riwayat dan penyesuaian tersimpan di localStorage browser dan belum tersinkron ke server.</span>
+          </div>
+          <div class="stock-summary">
+            <div class="stock-stat"><span>Total pelanggan</span><b id="memberTotalStat">0</b><small>Termasuk nonaktif</small></div>
+            <div class="stock-stat"><span>Pelanggan aktif</span><b id="memberActiveStat">0</b><small>Dikenali di POS</small></div>
+            <div class="stock-stat"><span>Poin beredar</span><b id="memberPointsStat">0</b><small>Saldo poin demo</small></div>
+            <div class="stock-stat"><span>Estimasi nilai poin</span><b id="memberValueStat">Rp 0</b><small>Mengikuti nilai tukar</small></div>
+          </div>
+          <div class="settings-grid loyalty-layout">
+            <article class="table-panel">
+              <div class="table-panel-head">
+                <div><h2>Daftar pelanggan</h2><p id="memberCountLabel">Memuat pelanggan…</p></div>
+                <div class="table-toolbar">
+                  <div class="search-box"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg><input class="input" id="memberSearch" type="text" placeholder="Cari nama atau telepon" aria-label="Cari pelanggan"></div>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Pelanggan</th><th>Telepon</th><th class="num">Poin</th><th>Bergabung</th><th>Status</th><th class="num">Riwayat</th><th></th></tr></thead>
+                  <tbody id="memberBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer"><span id="memberFooterLabel">Memuat pelanggan…</span><span class="badge badge-neutral">Data demo</span></div>
+            </article>
+            <article class="settings-card loyalty-settings-card">
+              <div class="settings-card-head"><h2>Aturan loyalitas</h2><span class="badge badge-success" id="loyaltySettingsBadge">Aktif</span></div>
+              <div class="settings-card-body">
+                <form id="loyaltySettingsForm">
+                  <div class="settings-row">
+                    <div><span class="settings-label">Program loyalitas</span><span class="settings-desc">Jika nonaktif, POS tidak menawarkan poin.</span></div>
+                    <button class="switch" type="button" role="switch" aria-checked="true" aria-label="Nonaktifkan program loyalitas" id="loyaltyActiveSwitch"></button>
+                  </div>
+                  <div class="form-grid cols-2" style="margin-top:10px">
+                    <div class="field"><label for="loyaltyEarnPerPoint">Rupiah per 1 poin</label><input class="input" id="loyaltyEarnPerPoint" type="number" min="1" step="100" required></div>
+                    <div class="field"><label for="loyaltyPointValue">Nilai 1 poin (Rp)</label><input class="input" id="loyaltyPointValue" type="number" min="1" step="100" required></div>
+                    <div class="field"><label for="loyaltyMinRedeem">Min. poin tukar</label><input class="input" id="loyaltyMinRedeem" type="number" min="1" step="1" required></div>
+                  </div>
+                  <div class="loyalty-example" id="loyaltyExample">100 poin = Rp 10.000</div>
+                  <p class="field-hint" id="loyaltyEarnNote" style="margin-top:6px">Setiap Rp 1.000 belanja menghasilkan 1 poin.</p>
+                  <div class="settings-actions"><button class="btn btn-primary btn-sm" type="submit">Simpan aturan</button><span class="tiny muted" style="align-self:center">Demo lokal</span></div>
+                </form>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- PRODUK -->
+        <section class="admin-page" data-page="produk" data-title="Produk & Menu" aria-labelledby="productPageTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="productPageTitle">Produk &amp; menu</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Kelola menu, kategori, harga, dan status ketersediaan.</p>
+            </div>
+            <div class="page-head-actions">
+              <button class="btn btn-primary btn-sm" type="button" data-open-dialog="productDialog"><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-plus"></use></svg> Tambah produk</button>
+            </div>
+          </div>
+          <div class="product-summary">
+            <div class="summary-line">Total menu <b>18</b></div>
+            <div class="summary-line">Aktif <b>15</b></div>
+            <div class="summary-line">Kategori <b>4</b></div>
+            <div class="summary-line">Tanpa resep <b>6</b></div>
+            <span class="badge badge-warning">Produk tanpa resep perlu aturan final (POS-007)</span>
+          </div>
+          <div class="notice notice-info" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+            <span><strong>Integritas historis:</strong> mengubah harga master tidak mengubah harga pada transaksi lama. Harga baru berlaku untuk transaksi berikutnya.</span>
+          </div>
+          <article class="table-panel">
+            <div class="table-panel-head">
+              <div><h2>Daftar produk</h2><p>Harga dan HPP adalah angka demo</p></div>
+              <div class="table-toolbar">
+                <div class="search-box">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
+                  <input class="input" type="text" id="productSearch" placeholder="Cari nama produk" aria-label="Cari produk">
+                </div>
+              </div>
+            </div>
+            <div class="category-tabs" style="padding:10px 16px;border-bottom:1px solid var(--border)">
+              <button class="chip is-active" type="button" data-product-category="all" aria-pressed="true">Semua</button>
+              <button class="chip" type="button" data-product-category="Paket" aria-pressed="false">Paket</button>
+              <button class="chip" type="button" data-product-category="Makanan" aria-pressed="false">Makanan</button>
+              <button class="chip" type="button" data-product-category="Minuman" aria-pressed="false">Minuman</button>
+              <button class="chip" type="button" data-product-category="Tambahan" aria-pressed="false">Tambahan</button>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Produk</th><th>Kategori</th><th>Harga jual</th><th>HPP demo</th><th>Margin</th><th>Resep</th><th>Status</th><th></th></tr></thead>
+                <tbody id="productBody"></tbody>
+              </table>
+            </div>
+            <div class="table-footer"><span id="productCountLabel">18 produk demo</span><span class="badge badge-neutral">Perubahan hanya di sesi demo</span></div>
+          </article>
+        </section>
+
+        <!-- BAHAN & RESEP -->
+        <section class="admin-page" data-page="bahan" data-title="Bahan & Resep" aria-labelledby="ingredientPageTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="ingredientPageTitle">Bahan &amp; resep</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Saldo bahan, satuan dasar, dan komposisi menu.</p>
+            </div>
+            <div class="page-head-actions">
+              <button class="btn btn-outline btn-sm" type="button" data-demo-only="disabled" data-demo-message="Tambah bahan belum aktif; aturan satuan/konversi belum disetujui."><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-plus"></use></svg> Tambah bahan</button>
+            </div>
+          </div>
+          <div class="notice notice-warning" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+            <span><strong>BLOCKED untuk aturan final:</strong> konversi satuan dan pemakaian resep belum disetujui. Angka di layar ini adalah contoh dan tidak boleh dijadikan formula produksi (INV-002, INV-003).</span>
+          </div>
+          <article class="table-panel">
+            <div class="subtabs" role="tablist" aria-label="Bahan dan resep">
+              <button class="subtab" type="button" role="tab" id="tabBahan" aria-selected="true" aria-controls="panelBahan" data-subtab="bahan">Bahan baku</button>
+              <button class="subtab" type="button" role="tab" id="tabResep" aria-selected="false" aria-controls="panelResep" data-subtab="resep">Resep / BOM</button>
+            </div>
+            <div class="tab-panel active" id="panelBahan" role="tabpanel" aria-labelledby="tabBahan">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Bahan</th><th>Satuan dasar</th><th class="num">Stok</th><th class="num">Minimum</th><th>Status</th><th>Konversi</th><th></th></tr></thead>
+                  <tbody id="ingredientBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-panel" id="panelResep" role="tabpanel" aria-labelledby="tabResep">
+              <div class="bom-layout" style="padding:16px">
+                <div class="recipe-list">
+                  <div class="recipe-list-head">Menu dengan resep</div>
+                  <button class="recipe-option active" type="button" data-recipe="paket">
+                    <span class="product-thumb"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-utensils"></use></svg></span>
+                    <span><b>Paket Nuvora</b><span>5 bahan</span></span>
+                    <span class="badge badge-success">Lengkap</span>
+                  </button>
+                  <button class="recipe-option" type="button" data-recipe="burger">
+                    <span class="product-thumb"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-utensils"></use></svg></span>
+                    <span><b>Beef Burger</b><span>4 bahan</span></span>
+                    <span class="badge badge-warning">Perlu cek</span>
+                  </button>
+                  <button class="recipe-option" type="button" data-recipe="tea">
+                    <span class="product-thumb"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-cup"></use></svg></span>
+                    <span><b>Es Teh</b><span>3 bahan</span></span>
+                    <span class="badge badge-success">Lengkap</span>
+                  </button>
+                </div>
+                <div class="recipe-detail" id="recipeDetail"></div>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- STOK -->
+        <section class="admin-page" data-page="stok" data-title="Stok & Opname" aria-labelledby="stockPageTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="stockPageTitle">Stok &amp; opname</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Setiap perubahan stok harus memiliki sumber, waktu, pelaku, dan alasan.</p>
+            </div>
+            <div class="page-head-actions">
+              <button class="btn btn-primary btn-sm" type="button" data-open-dialog="opnameDialog"><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-scale"></use></svg> Mulai opname</button>
+            </div>
+          </div>
+          <div class="stock-summary">
+            <div class="stock-stat"><span>Bahan aktif</span><b>24</b><small>3 tanpa konversi tervalidasi</small></div>
+            <div class="stock-stat"><span>Menipis</span><b style="color:var(--warning)">4</b><small>Di bawah minimum</small></div>
+            <div class="stock-stat"><span>Stok negatif</span><b style="color:var(--danger)">1</b><small>Perlu pengecualian tertinjau</small></div>
+            <div class="stock-stat"><span>Opname terakhir</span><b style="font-size:15px">29 Okt</b><small>Oleh Admin Demo</small></div>
+          </div>
+          <div class="notice notice-info" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+            <span><strong>Konteks lama—perlu rekonsiliasi:</strong> stok direncanakan berkurang saat pembayaran berhasil. Interaksi dengan offline, void/refund, produk tanpa resep, dan stok kurang belum final (INV-005).</span>
+          </div>
+          <article class="table-panel">
+            <div class="subtabs" role="tablist" aria-label="Stok">
+              <button class="subtab" type="button" role="tab" id="tabLedger" aria-selected="true" aria-controls="panelLedger" data-subtab="ledger">Pergerakan stok</button>
+              <button class="subtab" type="button" role="tab" id="tabOpname" aria-selected="false" aria-controls="panelOpname" data-subtab="opname">Riwayat opname</button>
+            </div>
+            <div class="tab-panel active" id="panelLedger" role="tabpanel" aria-labelledby="tabLedger">
+              <div class="table-toolbar" style="padding:12px 16px;border-bottom:1px solid var(--border)">
+                <div class="search-box"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg><input class="input" type="text" id="stockSearch" placeholder="Cari bahan / sumber" aria-label="Cari pergerakan stok"></div>
+                <span class="badge badge-neutral">Ledger demo</span>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Waktu</th><th>Bahan</th><th>Gerakan</th><th class="num">Qty</th><th>Sumber</th><th>Pelaku</th><th>Catatan</th></tr></thead>
+                  <tbody id="stockMovementBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-panel" id="panelOpname" role="tabpanel" aria-labelledby="tabOpname">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Tanggal</th><th>Bahan</th><th class="num">Sistem</th><th class="num">Fisik</th><th class="num">Selisih</th><th>Pelaku</th><th>Status</th></tr></thead>
+                  <tbody id="opnameHistoryBody">
+                    <tr><td>29 Okt 2026 · 22.10</td><td class="row-title">Ayam fillet</td><td class="num">2,0 kg</td><td class="num">1,8 kg</td><td class="num" style="color:var(--danger)">−0,2 kg</td><td>Admin Demo</td><td><span class="badge badge-warning">Menunggu review</span></td></tr>
+                    <tr><td>20 Okt 2026 · 21.45</td><td class="row-title">Beras</td><td class="num">12,0 kg</td><td class="num">12,4 kg</td><td class="num" style="color:var(--success)">+0,4 kg</td><td>Admin Demo</td><td><span class="badge badge-success">Disetujui</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+        </section>
+
+        <!-- KARYAWAN -->
+        <section class="admin-page" data-page="karyawan" data-title="Karyawan" aria-labelledby="employeePageTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="employeePageTitle">Karyawan</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Data dasar karyawan dan status aktif. Data pribadi dibatasi sesuai peran.</p>
+            </div>
+            <div class="page-head-actions">
+              <button class="btn btn-primary btn-sm" type="button" data-open-dialog="employeeDialog"><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-user-plus"></use></svg> Tambah karyawan</button>
+            </div>
+          </div>
+          <div class="notice notice-warning" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-shield"></use></svg>
+            <span><strong>Akses terbatas:</strong> daftar ini tidak menampilkan gaji, selfie, atau lokasi. Matriks role final belum disetujui (SEC-002).</span>
+          </div>
+          <article class="table-panel">
+            <div class="table-panel-head">
+              <div><h2>Daftar karyawan</h2><p>5 karyawan aktif · 1 nonaktif</p></div>
+              <div class="table-toolbar">
+                <div class="search-box"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg><input class="input" id="employeeSearch" type="text" placeholder="Cari nama / peran" aria-label="Cari karyawan"></div>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Karyawan</th><th>Peran</th><th>Outlet</th><th>Bergabung</th><th>Status</th><th></th></tr></thead>
+                <tbody id="employeeBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <!-- ABSENSI -->
+        <section class="admin-page" data-page="absensi" data-title="Jadwal & Absensi" aria-labelledby="attendanceAdminTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="attendanceAdminTitle">Jadwal &amp; absensi</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Jadwal dibuat manual; koreksi memerlukan alasan dan jejak audit.</p>
+            </div>
+            <div class="page-head-actions">
+              <button class="btn btn-outline btn-sm" type="button" data-demo-only="disabled" data-demo-message="Pembuatan jadwal belum aktif; alur approval dan kalender belum final."><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-calendar"></use></svg> Buat jadwal</button>
+            </div>
+          </div>
+          <article class="table-panel">
+            <div class="subtabs" role="tablist" aria-label="Jadwal dan absensi">
+              <button class="subtab" type="button" role="tab" id="tabJadwal" aria-selected="true" aria-controls="panelJadwal" data-subtab="jadwal">Jadwal minggu ini</button>
+              <button class="subtab" type="button" role="tab" id="tabAbsensi" aria-selected="false" aria-controls="panelAbsensi" data-subtab="absensi">Catatan absensi</button>
+            </div>
+            <div class="tab-panel active" id="panelJadwal" role="tabpanel" aria-labelledby="tabJadwal">
+              <div class="table-wrap">
+                <table class="table week-table">
+                  <thead><tr><th>Karyawan</th><th>Sen 26</th><th>Sel 27</th><th>Rab 28</th><th>Kam 29</th><th class="today-col">Jum 30</th><th>Sab 31</th><th>Min 1</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="employee-cell"><span class="avatar">DP</span><span><b>Dina Pratama</b><span>Kasir</span></span></div></td><td><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip pagi">Pagi</span></td><td class="today-col"><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip off">Off</span></td></tr>
+                    <tr><td><div class="employee-cell"><span class="avatar">RS</span><span><b>Raka Saputra</b><span>Kasir</span></span></div></td><td><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip sore">Sore</span></td><td class="today-col"><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip off">Off</span></td></tr>
+                    <tr><td><div class="employee-cell"><span class="avatar">NA</span><span><b>Nadia Aulia</b><span>Dapur</span></span></div></td><td><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip off">Off</span></td><td><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip pagi">Pagi</span></td><td class="today-col"><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip pagi">Pagi</span></td><td><span class="shift-chip off">Off</span></td></tr>
+                    <tr><td><div class="employee-cell"><span class="avatar">BK</span><span><b>Bima Kurnia</b><span>Dapur</span></span></div></td><td><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip off">Off</span></td><td><span class="shift-chip sore">Sore</span></td><td class="today-col"><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip sore">Sore</span></td><td><span class="shift-chip off">Off</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer"><span>Jadwal adalah data demo dan belum disetujui sebagai pola tetap.</span><span class="badge badge-neutral">Minggu 26 Okt–1 Nov 2026</span></div>
+            </div>
+            <div class="tab-panel" id="panelAbsensi" role="tabpanel" aria-labelledby="tabAbsensi">
+              <div class="table-toolbar" style="padding:12px 16px;border-bottom:1px solid var(--border)">
+                <div class="search-box"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg><input class="input" id="attendanceSearch" type="text" placeholder="Cari karyawan" aria-label="Cari absensi karyawan"></div>
+                <select class="select" id="attendanceFilter" aria-label="Filter status absensi"><option value="all">Semua status</option><option value="hadir">Hadir</option><option value="terlambat">Terlambat</option><option value="koreksi">Perlu koreksi</option></select>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Tanggal</th><th>Karyawan</th><th>Masuk</th><th>Pulang</th><th>Lokasi</th><th>Status</th><th>Aksi</th></tr></thead>
+                  <tbody id="attendanceBody"></tbody>
+                </table>
+              </div>
+              <div class="table-footer"><span>Selfie/lokasi hanya dapat dilihat peran berizin (ATT-007).</span><button class="link-btn" type="button" data-demo-only="disabled" data-demo-message="Kebijakan retensi bukti absensi belum diputuskan.">Kebijakan retensi</button></div>
+            </div>
+          </article>
+        </section>
+
+        <!-- PAYROLL -->
+        <section class="admin-page" data-page="payroll" data-title="Payroll" aria-labelledby="payrollTitle" data-restricted-page="kasir">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="payrollTitle">Payroll</h1><span class="badge badge-concept">BLOCKED</span></div>
+              <p>Halaman konsep. Tidak ada perhitungan gaji yang dijalankan pada prototype.</p>
+            </div>
+            <div class="page-head-actions"><button class="btn btn-outline btn-sm" type="button" disabled>Hitung payroll</button></div>
+          </div>
+          <div class="locked-hero">
+            <div class="locked-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg></div>
+            <div>
+              <h2>Formula payroll belum disetujui</h2>
+              <p>Catatan lama memuat gaji pokok bulanan, tarif shift, pengganti shift, tunjangan delivery, dan potongan yang berpotensi bertentangan. Sesuai PAYR-001 dan BR-PAYR-001, sistem tidak boleh menghitung atau memfinalisasi gaji sebelum contoh perhitungan manual disetujui pemilik.</p>
+              <div class="chip-row" style="margin-top:10px"><span class="badge badge-warning">PAYR-001–005</span><span class="badge badge-neutral">BLOCKED</span><span class="badge badge-neutral">Data demo</span></div>
+            </div>
+            <span class="badge badge-concept">Konsep</span>
+          </div>
+          <div class="locked-checks">
+            <div class="check-item"><span class="check-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calculator"></use></svg></span><div><h3>Formula dasar &amp; komponen</h3><p>Gaji pokok, tarif shift, potongan, pembulatan, dan periode harus disahkan.</p></div></div>
+            <div class="check-item"><span class="check-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-truck"></use></svg></span><div><h3>Tunjangan delivery &amp; makan</h3><p>Rentang jarak, penerima, perlakuan stok, dan pajak belum final.</p></div></div>
+            <div class="check-item"><span class="check-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-badge-check"></use></svg></span><div><h3>Review &amp; finalisasi</h3><p>Approver, penguncian periode, dan koreksi setelah final belum ditetapkan.</p></div></div>
+          </div>
+          <article class="table-panel">
+            <div class="table-panel-head"><div><h2>Contoh draft payroll · Oktober 2026</h2><p>Nilai disamarkan. Bukan hasil perhitungan dan tidak dapat difinalisasi.</p></div><span class="badge badge-concept">Draft konsep</span></div>
+            <div class="table-wrap">
+              <table class="table payroll-table">
+                <thead><tr><th>Karyawan</th><th>Peran</th><th class="num">Hari hadir</th><th class="num">Gaji pokok</th><th class="num">Tunjangan</th><th class="num">Potongan</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="employee-cell"><span class="avatar">DP</span><span><b>Dina Pratama</b><span>Kasir</span></span></div></td><td>Kasir</td><td class="num">22</td><td class="num"><span class="redacted"></span></td><td class="num"><span class="redacted"></span></td><td class="num"><span class="redacted"></span></td><td><span class="badge badge-neutral">Terkunci</span></td></tr>
+                  <tr><td><div class="employee-cell"><span class="avatar">RS</span><span><b>Raka Saputra</b><span>Kasir</span></span></div></td><td>Kasir</td><td class="num">21</td><td class="num"><span class="redacted"></span></td><td class="num"><span class="redacted"></span></td><td class="num"><span class="redacted"></span></td><td><span class="badge badge-neutral">Terkunci</span></td></tr>
+                  <tr><td><div class="employee-cell"><span class="avatar">NA</span><span><b>Nadia Aulia</b><span>Dapur</span></span></div></td><td>Dapur</td><td class="num">23</td><td class="num"><span class="redacted"></span></td><td class="num"><span class="redacted"></span></td><td class="num"><span class="redacted"></span></td><td><span class="badge badge-neutral">Terkunci</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-footer"><span>Tombol hitung, simpan, dan finalisasi dinonaktifkan sampai aturan disetujui.</span><span class="badge badge-warning">Belum dapat dipakai</span></div>
+          </article>
+        </section>
+
+        <!-- PENGELUARAN -->
+        <section class="admin-page" data-page="pengeluaran" data-title="Pengeluaran" aria-labelledby="expenseTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="expenseTitle">Pengeluaran</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Pengeluaran operasional dipisahkan dari penjualan dan refund.</p>
+            </div>
+            <div class="page-head-actions">
+              <button class="btn btn-primary btn-sm" type="button" data-open-dialog="expenseDialog"><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-plus"></use></svg> Catat pengeluaran</button>
+            </div>
+          </div>
+          <div class="notice notice-warning" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+            <span><strong>Aturan approval dan kategori belum final.</strong> Pengeluaran pada prototype hanya menambah baris demo; tidak mengubah kas atau laporan nyata (CASH-003).</span>
+          </div>
+          <div class="product-summary">
+            <div class="summary-line">Bulan ini <b id="expenseTotal">Rp 1.245.000</b></div>
+            <div class="summary-line">Transaksi <b id="expenseCount">12</b></div>
+            <div class="summary-line">Menunggu bukti <b>2</b></div>
+            <span class="badge badge-neutral">Contoh data</span>
+          </div>
+          <article class="table-panel">
+            <div class="table-panel-head"><div><h2>Daftar pengeluaran</h2><p>Kategori dan bukti adalah contoh</p></div><div class="table-toolbar"><span class="date-control"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar"></use></svg> Oktober 2026</span></div></div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Tanggal</th><th>Kategori</th><th>Keterangan</th><th>Dicatat oleh</th><th>Bukti</th><th class="num">Jumlah</th></tr></thead>
+                <tbody id="expenseBody">
+                  <tr><td>30 Okt 2026</td><td><span class="badge badge-info">Bahan baku</span></td><td class="row-title">Pembelian ayam fillet 5 kg</td><td>Admin Demo</td><td><span class="badge badge-success">Ada</span></td><td class="num">Rp 225.000</td></tr>
+                  <tr><td>30 Okt 2026</td><td><span class="badge badge-neutral">Operasional</span></td><td class="row-title">Gas elpiji 3 kg</td><td>Sari</td><td><span class="badge badge-success">Ada</span></td><td class="num">Rp 45.000</td></tr>
+                  <tr><td>29 Okt 2026</td><td><span class="badge badge-info">Bahan baku</span></td><td class="row-title">Sayur dan bumbu harian</td><td>Sari</td><td><span class="badge badge-warning">Belum</span></td><td class="num">Rp 185.000</td></tr>
+                  <tr><td>28 Okt 2026</td><td><span class="badge badge-neutral">Perawatan</span></td><td class="row-title">Servis kulkas kecil</td><td>Admin Demo</td><td><span class="badge badge-success">Ada</span></td><td class="num">Rp 350.000</td></tr>
+                  <tr><td>27 Okt 2026</td><td><span class="badge badge-neutral">Lain-lain</span></td><td class="row-title">Plastik kemasan takeaway</td><td>Admin Demo</td><td><span class="badge badge-success">Ada</span></td><td class="num">Rp 120.000</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-footer"><span>Pengeluaran tidak otomatis mengurangi kas laci tanpa aturan rekonsiliasi final.</span><span class="badge badge-neutral">Demo</span></div>
+          </article>
+        </section>
+
+        <!-- LAPORAN -->
+        <section class="admin-page" data-page="laporan" data-title="Laporan" aria-labelledby="reportTitle">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="reportTitle">Laporan</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Definisi total harus konsisten dengan sumber transaksi dan status sync.</p>
+            </div>
+            <div class="page-head-actions">
+              <span class="date-control"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-calendar"></use></svg> 1–30 Okt 2026</span>
+              <button class="btn btn-outline btn-sm" type="button" data-demo-only="disabled" data-demo-message="Ekspor laporan belum aktif pada prototype.">Ekspor laporan</button>
+            </div>
+          </div>
+          <div class="notice notice-warning" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wifi-off"></use></svg>
+            <span><strong>2 transaksi kasir belum tersinkron.</strong> Angka laporan ini belum memasukkan transaksi tersebut. Laporan harus menampilkan status data tertunda agar tidak menyesatkan (REP-004).</span>
+          </div>
+          <article class="table-panel">
+            <div class="report-tabs" role="tablist" aria-label="Jenis laporan">
+              <button class="report-tab" type="button" role="tab" data-report-tab="penjualan" aria-selected="true">Penjualan</button>
+              <button class="report-tab" type="button" role="tab" data-report-tab="stok" aria-selected="false">Stok</button>
+              <button class="report-tab" type="button" role="tab" data-report-tab="absensi" aria-selected="false">Absensi</button>
+              <button class="report-tab" type="button" role="tab" data-report-tab="payroll" aria-selected="false">Payroll</button>
+            </div>
+            <div class="report-panel" data-report-panel="penjualan">
+              <div class="report-summary">
+                <div class="report-stat"><span>Penjualan</span><b>Rp 2.450.000</b><small>86 transaksi</small></div>
+                <div class="report-stat"><span>Tunai</span><b>Rp 1.320.000</b><small>54%</small></div>
+                <div class="report-stat"><span>QRIS manual</span><b>Rp 1.130.000</b><small>46%</small></div>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Tanggal</th><th>Jenis pesanan</th><th class="num">Transaksi</th><th class="num">Tunai</th><th class="num">QRIS</th><th class="num">Total</th></tr></thead>
+                  <tbody>
+                    <tr><td>30 Okt 2026</td><td>Dine-in</td><td class="num">21</td><td class="num">Rp 410.000</td><td class="num">Rp 320.000</td><td class="num">Rp 730.000</td></tr>
+                    <tr><td>30 Okt 2026</td><td>Takeaway</td><td class="num">12</td><td class="num">Rp 260.000</td><td class="num">Rp 180.000</td><td class="num">Rp 440.000</td></tr>
+                    <tr><td>30 Okt 2026</td><td>Delivery manual</td><td class="num">8</td><td class="num">Rp 190.000</td><td class="num">Rp 130.000</td><td class="num">Rp 320.000</td></tr>
+                    <tr><td>29 Okt 2026</td><td>Semua jenis</td><td class="num">45</td><td class="num">Rp 460.000</td><td class="num">Rp 500.000</td><td class="num">Rp 960.000</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="report-panel" data-report-panel="stok" hidden>
+              <div class="report-summary">
+                <div class="report-stat"><span>Bahan aktif</span><b>24</b><small>3 belum tervalidasi</small></div>
+                <div class="report-stat"><span>Menipis</span><b>4</b><small>Di bawah minimum</small></div>
+                <div class="report-stat"><span>Penyesuaian</span><b>2</b><small>Bulan ini</small></div>
+              </div>
+              <div class="table-wrap"><table class="table"><thead><tr><th>Bahan</th><th>Masuk</th><th>Keluar</th><th>Penyesuaian</th><th class="num">Saldo</th></tr></thead><tbody><tr><td class="row-title">Ayam fillet</td><td>18 kg</td><td>16 kg</td><td>−0,2 kg</td><td class="num">1,8 kg</td></tr><tr><td class="row-title">Beras</td><td>25 kg</td><td>13 kg</td><td>+0,4 kg</td><td class="num">12,4 kg</td></tr><tr><td class="row-title">Telur</td><td>30 kg</td><td>22 kg</td><td>0</td><td class="num">8 kg</td></tr></tbody></table></div>
+            </div>
+            <div class="report-panel" data-report-panel="absensi" hidden>
+              <div class="report-summary">
+                <div class="report-stat"><span>Hadir</span><b>78%</b><small>88 catatan</small></div>
+                <div class="report-stat"><span>Terlambat</span><b>11%</b><small>12 catatan</small></div>
+                <div class="report-stat"><span>Perlu koreksi</span><b>2</b><small>Menunggu review</small></div>
+              </div>
+              <div class="table-wrap"><table class="table"><thead><tr><th>Karyawan</th><th>Hadir</th><th>Terlambat</th><th>Off</th><th>Koreksi</th></tr></thead><tbody><tr><td class="row-title">Dina Pratama</td><td>22</td><td>1</td><td>4</td><td>0</td></tr><tr><td class="row-title">Raka Saputra</td><td>21</td><td>2</td><td>4</td><td>1</td></tr><tr><td class="row-title">Nadia Aulia</td><td>23</td><td>0</td><td>3</td><td>0</td></tr></tbody></table></div>
+            </div>
+            <div class="report-panel" data-report-panel="payroll" hidden>
+              <div class="empty-state" style="min-height:260px">
+                <div class="empty-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg></div>
+                <h4>Laporan payroll belum tersedia</h4>
+                <p>Formula payroll masih BLOCKED. Laporan tidak dihitung sampai aturan dan contoh perhitungan disetujui pemilik.</p>
+              </div>
+            </div>
+            <div class="table-footer"><span>Total laporan mengikuti definisi status final yang belum disetujui.</span><span class="badge badge-warning">Definisi metrik perlu review</span></div>
+          </article>
+        </section>
+
+        <!-- AUDIT -->
+        <section class="admin-page" data-page="audit" data-title="Audit Log" aria-labelledby="auditPageTitle" data-restricted-page="kasir">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="auditPageTitle">Audit log</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Jejak tindakan sensitif: pelaku, waktu, objek, alasan, dan nilai sebelum/sesudah.</p>
+            </div>
+            <div class="page-head-actions"><span class="badge badge-info">Read-only</span></div>
+          </div>
+          <div class="notice notice-info" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-shield"></use></svg>
+            <span>Audit log tidak dapat diubah oleh pengguna operasional biasa. Retensi dan siapa yang dapat membacanya belum final (SEC-003).</span>
+          </div>
+          <article class="table-panel">
+            <div class="table-panel-head">
+              <div><h2>Peristiwa terbaru</h2><p>Contoh 8 peristiwa demo</p></div>
+              <div class="table-toolbar">
+                <select class="select" id="auditFilter" aria-label="Filter jenis audit"><option value="all">Semua tindakan</option><option value="Stok">Stok</option><option value="Absensi">Absensi</option><option value="Transaksi">Transaksi</option><option value="Pelanggan">Pelanggan</option><option value="Akses">Akses</option></select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table">
+                <thead><tr><th>Waktu</th><th>Aktor</th><th>Tindakan</th><th>Objek</th><th>Alasan</th><th>Hasil</th><th></th></tr></thead>
+                <tbody id="auditBody"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <!-- PENGATURAN -->
+        <section class="admin-page" data-page="pengaturan" data-title="Pengaturan & Backup" aria-labelledby="settingsPageTitle" data-restricted-page="kasir">
+          <div class="page-head">
+            <div>
+              <div class="page-head-title"><h1 id="settingsPageTitle">Pengaturan &amp; backup</h1><span class="badge badge-neutral">Data demo</span></div>
+              <p>Identitas outlet, struk, sinkronisasi, dan latihan backup.</p>
+            </div>
+          </div>
+          <div class="notice notice-warning" style="margin-bottom:14px">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+            <span><strong>Model hosting, kepemilikan akun, dan backup final belum diputuskan.</strong> Pengaturan ini hanya mensimulasikan UI; tidak ada konfigurasi nyata yang diubah (OPS-001, OPS-003).</span>
+          </div>
+          <div class="settings-grid">
+            <div>
+              <article class="settings-card">
+                <div class="settings-card-head"><h2>Profil outlet</h2><span class="badge badge-neutral">Demo</span></div>
+                <div class="settings-card-body">
+                  <div class="form-grid cols-2">
+                    <div class="field"><label for="outletName">Nama outlet</label><input class="input" id="outletName" value="Outlet Melati"></div>
+                    <div class="field"><label for="outletPhone">Telepon</label><input class="input" id="outletPhone" value="0274 000 000"></div>
+                    <div class="field" style="grid-column:1/-1"><label for="outletAddress">Alamat</label><input class="input" id="outletAddress" value="Jl. Melati No. 12, Yogyakarta (alamat demo)"></div>
+                  </div>
+                  <div class="settings-actions"><button class="btn btn-primary btn-sm" type="button" id="saveOutlet">Simpan (demo)</button><span class="tiny muted" style="align-self:center">Tidak tersimpan ke server.</span></div>
+                </div>
+              </article>
+              <article class="settings-card">
+                <div class="settings-card-head"><h2>Struk &amp; pembayaran</h2><span class="badge badge-neutral">Konsep</span></div>
+                <div class="settings-card-body">
+                  <div class="settings-row"><div><span class="settings-label">Nama di struk</span><span class="settings-desc">Nuvora · Outlet Melati (demo)</span></div><button class="btn btn-ghost btn-sm" type="button" data-demo-only="disabled" data-demo-message="Editor struk belum aktif; format printer belum diputuskan.">Ubah</button></div>
+                  <div class="settings-row"><div><span class="settings-label">QRIS statis toko</span><span class="settings-desc">Kasir memeriksa bukti manual · tidak ada verifikasi API</span></div><span class="badge badge-info">Manual</span></div>
+                  <div class="settings-row"><div><span class="settings-label">Cetak otomatis</span><span class="settings-desc">Printer belum terhubung pada prototype</span></div><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Cetak otomatis" data-toggle-switch></button></div>
+                </div>
+              </article>
+              <article class="settings-card">
+                <div class="settings-card-head"><h2>Sinkronisasi &amp; offline</h2><span class="badge badge-warning">Perlu keputusan</span></div>
+                <div class="settings-card-body">
+                  <div class="settings-row"><div><span class="settings-label">Batas offline kasir</span><span class="settings-desc">Skenario yang diizinkan belum ditetapkan (OFF-006)</span></div><span class="badge badge-neutral">Belum final</span></div>
+                  <div class="settings-row"><div><span class="settings-label">Antrean sync</span><span class="settings-desc">2 transaksi demo menunggu</span></div><span class="badge badge-warning">2</span></div>
+                  <div class="settings-row"><div><span class="settings-label">Konflik master data</span><span class="settings-desc">Aturan menang/kalah belum disetujui</span></div><span class="badge badge-neutral">Belum final</span></div>
+                </div>
+              </article>
+            </div>
+            <div>
+              <article class="settings-card">
+                <div class="settings-card-head"><h2>Backup</h2><span class="badge badge-neutral">Demo</span></div>
+                <div class="settings-card-body">
+                  <div class="backup-status">
+                    <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-database"></use></svg>
+                    <div><b>Backup terakhir: 29 Okt 2026, 23.00</b><span>Status dibuat, belum pernah diuji restore.</span></div>
+                  </div>
+                  <div class="settings-actions">
+                    <button class="btn btn-primary btn-sm" type="button" data-open-dialog="backupDialog">Buat backup demo</button>
+                    <button class="btn btn-outline btn-sm" type="button" data-demo-only="disabled" data-demo-message="Restore belum aktif dan belum diuji pada prototype.">Restore</button>
+                  </div>
+                  <p class="tiny muted" style="margin-top:9px">Backup yang belum diuji restore bukan bukti pemulihan berhasil (OPS-002).</p>
+                </div>
+              </article>
+              <article class="settings-card">
+                <div class="settings-card-head"><h2>Akses &amp; keamanan</h2><span class="badge badge-warning">Belum final</span></div>
+                <div class="settings-card-body">
+                  <div class="settings-row"><div><span class="settings-label">Autentikasi</span><span class="settings-desc">Provider dan reset akun belum diputuskan</span></div><span class="badge badge-neutral">Konsep</span></div>
+                  <div class="settings-row"><div><span class="settings-label">Sesi perangkat</span><span class="settings-desc">Logout dan lock offline belum dirancang</span></div><span class="badge badge-neutral">Konsep</span></div>
+                  <div class="settings-row"><div><span class="settings-label">Retensi data sensitif</span><span class="settings-desc">Selfie, lokasi, bukti QRIS belum final</span></div><span class="badge badge-warning">Perlu review</span></div>
+                </div>
+              </article>
+              <article class="settings-card">
+                <div class="settings-card-head"><h2>Prototype</h2><span class="badge badge-demo">Gate 1</span></div>
+                <div class="settings-card-body">
+                  <p class="small muted" style="line-height:1.6">Data master demo tersimpan di localStorage browser ini agar Admin dan POS memakai daftar produk serta karyawan yang sama. Tidak ada backend, database, atau akun yang terhubung.</p>
+                  <div class="settings-actions">
+                    <a class="btn btn-outline btn-sm" href="index.html">Kembali ke pemilih prototype</a>
+                    <button class="btn btn-danger btn-sm" type="button" id="resetMasterBtn">Reset data master</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- PERMISSION DENIED -->
+        <section class="admin-page" data-page="__denied" data-title="Akses ditolak" aria-labelledby="deniedTitle">
+          <div class="permission-denied">
+            <div>
+              <div class="denied-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg></div>
+              <h2 id="deniedTitle">Akses ditolak</h2>
+              <p id="deniedMessage">Peran Kasir tidak memiliki izin membuka halaman ini pada prototype. Matriks izin final belum disetujui (SEC-002).</p>
+              <div class="sheet-actions" style="max-width:320px;margin:16px auto 0">
+                <button class="btn btn-primary btn-block" type="button" id="deniedBack">Kembali ke ringkasan</button>
+                <button class="btn btn-outline btn-block" type="button" id="deniedSwitch">Lihat sebagai Admin</button>
+              </div>
+              <div class="denied-ref">Permission denied state · hanya simulasi UI</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Transaction detail -->
+  <dialog class="modal" id="transactionDialog" aria-labelledby="transactionDialogTitle">
+    <div class="modal-panel modal-wide">
+      <div class="modal-head"><div><div class="modal-title" id="transactionDialogTitle">Detail transaksi</div><div class="modal-sub" id="transactionDialogSub">Snapshot transaksi demo</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <div class="modal-body" id="transactionDetail"></div>
+    </div>
+  </dialog>
+
+  <!-- Add product -->
+  <dialog class="modal" id="productDialog" aria-labelledby="productDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="productDialogTitle">Tambah produk</div><div class="modal-sub">Demo UI · tidak tersimpan permanen</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <form id="productForm">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="field"><label for="newProductName">Nama produk</label><input class="input" id="newProductName" required placeholder="Contoh: Nasi Goreng Nuvora"></div>
+            <div class="field product-photo-field">
+              <label for="newProductPhoto">Foto produk <span class="muted">(opsional)</span></label>
+              <div class="product-photo-picker">
+                <div class="product-photo-preview" id="newProductPhotoPreview" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-camera"></use></svg></div>
+                <div class="product-photo-copy">
+                  <input class="input" id="newProductPhoto" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="newProductPhotoHint">
+                  <p class="field-hint" id="newProductPhotoHint">JPG, PNG, atau WebP maksimal 2 MB. Hanya pratinjau lokal; file tidak diunggah.</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-grid cols-2">
+              <div class="field"><label for="newProductCategory">Kategori</label><select class="select" id="newProductCategory"><option>Makanan</option><option>Minuman</option><option>Paket</option><option>Tambahan</option></select></div>
+              <div class="field"><label for="newProductPrice">Harga jual (Rp)</label><input class="input" id="newProductPrice" type="number" min="0" step="500" required placeholder="18000"></div>
+            </div>
+            <div class="notice notice-info"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg><span>Harga yang diubah setelah transaksi tidak mengubah snapshot transaksi lama.</span></div>
+          </div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Batal</button><button class="btn btn-primary" type="submit">Tambah produk (demo)</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Add employee -->
+  <dialog class="modal" id="employeeDialog" aria-labelledby="employeeDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="employeeDialogTitle">Tambah karyawan</div><div class="modal-sub">Demo UI · data sensitif tidak dikirim</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <form id="employeeForm">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="field"><label for="newEmployeeName">Nama karyawan</label><input class="input" id="newEmployeeName" required placeholder="Nama lengkap"></div>
+            <div class="form-grid cols-2">
+              <div class="field"><label for="newEmployeeRole">Peran</label><select class="select" id="newEmployeeRole"><option>Kasir</option><option>Dapur</option><option>Pemimpin tim</option></select></div>
+              <div class="field"><label for="newEmployeeOutlet">Outlet</label><input class="input" id="newEmployeeOutlet" value="Outlet Melati" disabled></div>
+            </div>
+            <div class="notice notice-warning"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg><span>Matriks role final belum disetujui. Penambahan akun dan akses login belum aktif.</span></div>
+          </div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Batal</button><button class="btn btn-primary" type="submit">Tambah (demo)</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Attendance correction -->
+  <dialog class="modal" id="correctionDialog" aria-labelledby="correctionDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="correctionDialogTitle">Koreksi absensi</div><div class="modal-sub" id="correctionSub">Data demo</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <form id="adminCorrectionForm">
+        <div class="modal-body">
+          <div class="notice notice-warning"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg><span>Koreksi harus menyimpan nilai asli, alasan, pelaku, waktu, dan reviewer. Alur approval final belum disetujui (ATT-005).</span></div>
+          <div class="form-grid" style="margin-top:12px">
+            <div class="field"><label for="adminCorrectionSeed">Nilai asli</label><input class="input" id="adminCorrectionSeed" value="Pulang 15.45 · tidak ada bukti lokasi" disabled></div>
+            <div class="field"><label for="adminCorrectionReason">Alasan koreksi</label><textarea class="textarea" id="adminCorrectionReason" required placeholder="Contoh: karyawan lupa absen pulang; bukti chat penanggung jawab tersedia."></textarea></div>
+          </div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Batal</button><button class="btn btn-primary" type="submit">Kirim ke review (demo)</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Expense -->
+  <dialog class="modal" id="expenseDialog" aria-labelledby="expenseDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="expenseDialogTitle">Catat pengeluaran</div><div class="modal-sub">Demo UI · tidak mengubah kas nyata</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <form id="expenseForm">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="field"><label for="expenseCategory">Kategori</label><select class="select" id="expenseCategory"><option>Bahan baku</option><option>Operasional</option><option>Perawatan</option><option>Lain-lain</option></select></div>
+            <div class="field"><label for="expenseDescription">Keterangan</label><input class="input" id="expenseDescription" required placeholder="Contoh: beli gas 3 kg"></div>
+            <div class="field"><label for="expenseAmount">Jumlah (Rp)</label><input class="input" id="expenseAmount" type="number" min="1000" step="1000" required placeholder="45000"></div>
+            <div class="notice notice-warning"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg><span>Kategori, approval, dan pengaruh ke kas masih perlu aturan final (CASH-003).</span></div>
+          </div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Batal</button><button class="btn btn-primary" type="submit">Simpan demo</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="memberDialog" aria-labelledby="memberDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="memberDialogTitle">Tambah pelanggan</div><div class="modal-sub">Demo lokal · pelanggan baru mulai dengan 0 poin</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <form id="memberForm">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="field"><label for="newMemberName">Nama pelanggan</label><input class="input" id="newMemberName" required placeholder="Nama lengkap"></div>
+            <div class="field"><label for="newMemberPhone">Nomor telepon</label><input class="input" id="newMemberPhone" type="tel" inputmode="tel" required placeholder="0812 3456 7890"></div>
+            <div class="notice notice-info"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg><span>Pelanggan baru disimpan aktif dengan 0 poin, tanggal bergabung 30 Okt 2026, dan riwayat kosong.</span></div>
+          </div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Batal</button><button class="btn btn-primary" type="submit">Tambah pelanggan</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="pointsDialog" aria-labelledby="pointsDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="pointsDialogTitle">Sesuaikan poin</div><div class="modal-sub" id="pointsDialogSub">Data demo</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <form id="pointsForm">
+        <div class="modal-body">
+          <div class="detail-grid" style="margin-bottom:12px">
+            <div class="detail-box"><span>Poin saat ini</span><b id="pointsCurrent">0 poin</b></div>
+            <div class="detail-box"><span>Setelah penyesuaian</span><b id="pointsPreview">0 poin</b></div>
+          </div>
+          <div class="form-grid">
+            <div class="field"><label for="pointsAmount">Jumlah poin</label><input class="input" id="pointsAmount" type="number" step="1" required placeholder="Contoh: 50 atau -20"><p class="field-hint">Angka positif menambah poin; angka negatif mengurangi poin.</p></div>
+            <div class="field"><label for="pointsReason">Alasan penyesuaian</label><textarea class="textarea" id="pointsReason" required placeholder="Contoh: kompensasi keluhan pelanggan."></textarea></div>
+            <div class="notice notice-warning"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg><span>Saldo poin tidak boleh di bawah 0. Penyesuaian dicatat ke riwayat pelanggan dan audit log.</span></div>
+          </div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Batal</button><button class="btn btn-primary" type="submit">Simpan penyesuaian</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="memberHistoryDialog" aria-labelledby="memberHistoryDialogTitle">
+    <div class="modal-panel modal-wide">
+      <div class="modal-head"><div><div class="modal-title" id="memberHistoryDialogTitle">Riwayat poin</div><div class="modal-sub" id="memberHistorySub">Data demo</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <div class="modal-body" id="memberHistoryBody"></div>
+      <div class="modal-foot"><button class="btn btn-outline" type="button" data-close-dialog>Tutup</button></div>
+    </div>
+  </dialog>
+
+  <!-- Opname -->
+  <dialog class="modal" id="opnameDialog" aria-labelledby="opnameDialogTitle">
+    <div class="modal-panel modal-tall">
+      <div class="modal-head"><div><div class="modal-title" id="opnameDialogTitle">Mulai opname</div><div class="modal-sub">Hitung fisik contoh · demo lokal</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <form id="opnameForm">
+        <div class="modal-body">
+          <div class="notice notice-info"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg><span>Selisih akan disimpan sebagai penyesuaian demo dengan alasan. Saldo sistem tidak diedit langsung.</span></div>
+          <div class="table-wrap" style="margin-top:12px">
+            <table class="table">
+              <thead><tr><th>Bahan</th><th class="num">Sistem</th><th style="width:130px">Hitung fisik</th><th class="num">Selisih</th></tr></thead>
+              <tbody>
+                <tr><td class="row-title">Ayam fillet</td><td class="num" data-system="2">2,0 kg</td><td><input class="input" type="number" step="0.1" min="0" value="2" data-opname-input="ayam" aria-label="Hitung fisik ayam fillet" style="min-height:32px;padding:4px 8px"></td><td class="num" data-diff="ayam">0</td></tr>
+                <tr><td class="row-title">Beras</td><td class="num" data-system="12">12,0 kg</td><td><input class="input" type="number" step="0.1" min="0" value="12" data-opname-input="beras" aria-label="Hitung fisik beras" style="min-height:32px;padding:4px 8px"></td><td class="num" data-diff="beras">0</td></tr>
+                <tr><td class="row-title">Telur</td><td class="num" data-system="8">8,0 kg</td><td><input class="input" type="number" step="0.1" min="0" value="8" data-opname-input="telur" aria-label="Hitung fisik telur" style="min-height:32px;padding:4px 8px"></td><td class="num" data-diff="telur">0</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="field" style="margin-top:12px"><label for="opnameReason">Alasan / catatan opname</label><textarea class="textarea" id="opnameReason" placeholder="Contoh: stok opname harian; ada susut bahan." required></textarea></div>
+        </div>
+        <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Batal</button><button class="btn btn-primary" type="submit">Simpan penyesuaian demo</button></div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Audit detail -->
+  <dialog class="modal" id="auditDialog" aria-labelledby="auditDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="auditDialogTitle">Detail audit</div><div class="modal-sub">Data demo · read-only</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <div class="modal-body" id="auditDetail"></div>
+    </div>
+  </dialog>
+
+  <!-- Backup -->
+  <dialog class="modal" id="backupDialog" aria-labelledby="backupDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head"><div><div class="modal-title" id="backupDialogTitle">Buat backup demo</div><div class="modal-sub">Simulasi lokal · tidak membuat file nyata</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <div class="modal-body">
+        <div class="notice notice-info"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg><span>Backup di prototype hanya memperlihatkan status UI. Tidak ada data yang diekspor atau disimpan.</span></div>
+        <div id="backupProgressWrap" style="margin-top:14px;display:none">
+          <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px"><span class="muted">Memproses demo…</span><span class="mono" id="backupPercent">0%</span></div>
+          <div class="progress"><span id="backupProgress" style="width:0%"></span></div>
+        </div>
+        <div id="backupDone" style="display:none">
+          <div class="notice notice-success" style="margin-top:14px"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-check-circle"></use></svg><span><strong>Backup demo selesai.</strong> File contoh: nuvora-backup-demo-20261030.zip. Tidak ada file yang benar-benar dibuat.</span></div>
+        </div>
+      </div>
+      <div class="modal-foot"><button class="btn btn-ghost" type="button" data-close-dialog>Tutup</button><button class="btn btn-primary" type="button" id="startBackup">Mulai backup demo</button></div>
+    </div>
+  </dialog>
+
+  <!-- Global search -->
+  <dialog class="modal" id="searchDialog" aria-labelledby="searchDialogTitle">
+    <div class="modal-panel modal-tall">
+      <div class="modal-head"><div><div class="modal-title" id="searchDialogTitle">Pencarian &amp; notifikasi</div><div class="modal-sub">Hasil demo · tidak mencari di server</div></div><button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button></div>
+      <div class="modal-body">
+        <div class="search-box"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg><input class="input" id="searchModalInput" type="search" placeholder="Cari menu, transaksi, pelanggan..." aria-label="Cari di prototype" autofocus></div>
+        <div id="searchResults" style="margin-top:10px">
+          <button class="search-result" type="button" data-search-page="penjualan"><span class="result-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-receipt"></use></svg></span><span><b>#TRX-0086</b><span>Transaksi · Dina · QRIS · Rp 48.000</span></span><span class="badge badge-success">Lunas</span></button>
+          <button class="search-result" type="button" data-search-page="produk"><span class="result-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-utensils"></use></svg></span><span><b>Paket Nuvora</b><span>Menu · Paket · Rp 18.000</span></span><span class="badge badge-neutral">Aktif</span></button>
+          <button class="search-result" type="button" data-search-page="karyawan"><span class="result-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-user"></use></svg></span><span><b>Dina Pratama</b><span>Karyawan · Kasir</span></span><span class="badge badge-success">Aktif</span></button>
+          <button class="search-result" type="button" data-search-page="stok"><span class="result-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-boxes"></use></svg></span><span><b>Ayam fillet</b><span>Bahan · 1,8 kg · menipis</span></span><span class="badge badge-warning">Restock</span></button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="assets/common.js"></script>
+  <script src="assets/store.js?v=2"></script>
+  <script src="assets/admin.js?v=7"></script>
+</body>
+</html>

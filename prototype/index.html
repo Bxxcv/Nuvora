@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuvora — Prototype UI Gate 1</title>
+  <link rel="icon" href="assets/nuvora-logo.jpg">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/launcher.css">
+</head>
+<body class="launcher">
+  <div class="demo-strip" role="note">
+    <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+    <span><strong>Data demo.</strong> Semua angka, nama, transaksi, dan status di prototype ini adalah contoh. Bukan data outlet nyata dan belum terhubung ke server.</span>
+    <span class="badge badge-demo" style="margin-left:auto">Gate 1</span>
+  </div>
+
+  <header class="launcher-top">
+    <div class="launcher-top-inner">
+      <a class="brand-lockup" href="index.html" aria-label="Nuvora, kembali ke halaman utama prototype">
+        <span class="logo-badge"><img src="assets/nuvora-logo.jpg" alt="Logo Nuvora"></span>
+        <span>
+          <span class="brand-name">Nuvora</span>
+          <span class="brand-sub">POS &amp; Management System</span>
+        </span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="badge badge-info"><span class="pill-dot"></span> Prototype lokal</span>
+        <span class="badge badge-neutral">v0.1 · 30 Okt 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="launcher-main">
+    <section class="launcher-hero" aria-labelledby="page-title">
+      <div>
+        <div class="eyebrow"><span class="pill-dot" style="background:var(--teal-500)"></span> Gate 1 · UI untuk dinilai</div>
+        <h1 id="page-title">Tiga antarmuka.<br><span>Satu alur operasional.</span></h1>
+        <p class="launcher-lead">
+          Prototype ini dibuat untuk menguji alur dan keputusan UI sebelum backend disentuh.
+          Buka tiap area secara terpisah, coba interaksi yang tersedia, lalu tandai bagian yang perlu diperbaiki.
+        </p>
+      </div>
+      <div class="hero-note">
+        <strong>Bukan build production.</strong><br>
+        Tidak ada autentikasi nyata, database, sinkronisasi, printer, kamera, GPS, atau integrasi pembayaran.
+        Tombol yang belum aktif diberi label, bukan dibuat seolah-olah berhasil.
+      </div>
+    </section>
+
+    <section class="area-grid" aria-label="Tiga area prototype">
+      <a class="area-card" href="attendance.html">
+        <div class="area-visual attendance" aria-hidden="true">
+          <div class="phone-mini">
+            <div class="mini-bar"></div>
+            <div class="mini-brand">
+              <img src="assets/nuvora-logo.jpg" alt="">
+              <span>Nuvora Absensi</span>
+            </div>
+            <div class="mini-status">
+              <small>Status hari ini</small>
+              <b>Belum absen</b>
+            </div>
+            <div class="mini-action"></div>
+            <div class="mini-row"></div>
+            <div class="mini-row short"></div>
+            <div style="margin-top:10px" class="mini-row"></div>
+            <div class="mini-row"></div>
+            <div class="mini-row short"></div>
+          </div>
+        </div>
+        <div class="area-body">
+          <div class="area-kicker">
+            <h2>Absensi Karyawan</h2>
+            <span class="badge badge-info">Mobile-first</span>
+          </div>
+          <p>Status hari ini, absen masuk/pulang, simulasi selfie dan lokasi, jadwal, riwayat, serta kondisi gagal izin perangkat dan offline.</p>
+          <div class="area-tags">
+            <span>ATT-003</span><span>ATT-004</span><span>ATT-006</span><span>ATT-007</span>
+          </div>
+          <span class="area-open">Buka prototype Absensi <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"></use></svg></span>
+        </div>
+      </a>
+
+      <a class="area-card" href="admin.html">
+        <div class="area-visual admin" aria-hidden="true">
+          <div class="mini-window">
+            <div class="mini-side">
+              <div class="mini-dot on"></div>
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+              <div class="mini-dot"></div>
+            </div>
+            <div class="mini-canvas">
+              <div class="mini-kpis">
+                <div class="mini-kpi"></div>
+                <div class="mini-kpi"></div>
+                <div class="mini-kpi"></div>
+              </div>
+              <div class="mini-chart"></div>
+              <div class="mini-table">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="area-body">
+          <div class="area-kicker">
+            <h2>Dashboard Admin</h2>
+            <span class="badge badge-neutral">Web</span>
+          </div>
+          <p>Prioritas tindakan, penjualan, produk, bahan/resep, stok, karyawan, absensi, payroll, pengeluaran, laporan, permission, audit, dan backup.</p>
+          <div class="area-tags">
+            <span>ADM-S01–S10</span><span>INV</span><span>SEC</span><span>OPS</span>
+          </div>
+          <span class="area-open">Buka prototype Dashboard <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"></use></svg></span>
+        </div>
+      </a>
+
+      <a class="area-card" href="pos.html">
+        <div class="area-visual pos" aria-hidden="true">
+          <div class="pos-mini">
+            <div class="pos-mini-left">
+              <div class="pos-mini-top"></div>
+              <div class="pos-mini-grid">
+                <div class="pos-mini-item"></div>
+                <div class="pos-mini-item"></div>
+                <div class="pos-mini-item"></div>
+                <div class="pos-mini-item"></div>
+                <div class="pos-mini-item"></div>
+                <div class="pos-mini-item"></div>
+              </div>
+            </div>
+            <div class="pos-mini-ticket">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span class="mini-total"></span>
+            </div>
+          </div>
+        </div>
+        <div class="area-body">
+          <div class="area-kicker">
+            <h2>Kasir</h2>
+            <span class="badge badge-neutral">Windows</span>
+          </div>
+          <p>Pilih produk, atur jumlah, jenis pesanan, pembayaran tunai/QRIS manual, konfirmasi, struk, riwayat, sesi kas, dan status offline.</p>
+          <div class="area-tags">
+            <span>POS-001–006</span><span>PAY-001–005</span><span>OFF</span><span>CASH</span>
+          </div>
+          <span class="area-open">Buka prototype Kasir <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"></use></svg></span>
+        </div>
+      </a>
+    </section>
+
+    <section class="launcher-lower">
+      <article class="card review-card">
+        <h3>Cara menilai prototype ini</h3>
+        <ol class="review-list">
+          <li><span class="num">1</span><span>Buka tiap area, lalu coba alur utama tanpa dibantu. Catat langkah yang membingungkan.</span></li>
+          <li><span class="num">2</span><span>Uji kondisi gagal: tolak izin kamera/lokasi, pilih “di luar area”, dan aktifkan mode offline di Kasir.</span></li>
+          <li><span class="num">3</span><span>Periksa apakah status uang, QRIS, stok, dan sinkronisasi jujur—tidak terlihat “berhasil” sebelum aturannya disetujui.</span></li>
+          <li><span class="num">4</span><span>Tandai bagian yang ingin diubah: bahasa, urutan layar, kepadatan data, atau istilah.</span></li>
+        </ol>
+      </article>
+      <article class="card review-card">
+        <h3>Batas yang disengaja</h3>
+        <ul class="limit-list">
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg><span>Belum ada backend, database, login nyata, atau sinkronisasi.</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg><span>Payroll, diskon, refund nyata, dan matriks permission ditampilkan sebagai konsep/terkunci; pembatalan transaksi tersedia sebagai simulasi demo.</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg><span>QRIS hanya dicatat setelah kasir menandai pemeriksaan manual. Tidak ada verifikasi otomatis.</span></li>
+          <li><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-lock"></use></svg><span>Stack prototype bukan keputusan stack production.</span></li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="launcher-foot">
+    <span>Nuvora POS · Prototype Gate 1 · Data contoh, bukan operasional nyata.</span>
+    <span>Rujukan: PLAN-008 (alur &amp; inventaris layar), UX/UI Design Brief, PRD v0.1.</span>
+  </footer>
+
+  <script src="assets/common.js"></script>
+</body>
+</html>

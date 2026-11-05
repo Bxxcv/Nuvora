@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#041f33">
+  <title>Nuvora Kasir — Prototype</title>
+  <link rel="icon" href="assets/nuvora-logo.jpg">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/pos.css?v=6">
+</head>
+<body class="pos-body">
+  <div class="pos-shell">
+    <header class="pos-topbar">
+      <a class="brand-lockup pos-brand" href="index.html" aria-label="Kembali ke pemilih prototype">
+        <span class="logo-badge"><img src="assets/nuvora-logo.jpg" alt="Logo Nuvora"></span>
+        <span>
+          <span class="brand-name">Nuvora <em>POS</em></span>
+          <span class="brand-sub">Kasir · Outlet Melati</span>
+        </span>
+      </a>
+
+      <button class="pos-cashier" type="button" data-pos-view="sesi" aria-label="Buka halaman sesi kas">
+        <span class="avatar" id="posCashierAvatar">DP</span>
+        <span><small>Kasir</small><b id="posCashierName">Dina Pratama</b></span>
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-chevron-right"></use></svg>
+      </button>
+
+      <div class="pos-shift">
+        <span class="status-dot ok"></span>
+        <span><b>Shift aktif</b><small>08.00–16.00</small></span>
+      </div>
+
+      <div class="pos-topbar-spacer"></div>
+
+      <button class="pos-sync" type="button" id="syncQueueBtn" hidden>
+        <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-refresh"></use></svg>
+        Sinkronkan <span id="syncQueueCount">0</span>
+      </button>
+
+      <button class="pos-connection is-online" type="button" id="connectionToggle" aria-pressed="false" title="Klik untuk simulasi online/offline">
+        <span class="pos-connection-dot"></span>
+        <span><b id="connectionLabel">Online</b><small id="connectionSub">Demo lokal</small></span>
+      </button>
+
+      <div class="pos-clock">
+        <span id="posDate">Jum, 30 Okt 2026</span>
+        <b id="posClock">10.24</b>
+      </div>
+
+      <button class="icon-btn" type="button" data-open-dialog="demoDialog" aria-label="Kontrol demo">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-sliders"></use></svg>
+      </button>
+    </header>
+
+    <nav class="pos-mobile-nav" aria-label="Navigasi halaman kasir">
+      <button class="pos-mobile-nav-item active" type="button" data-pos-view="kasir">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-list"></use></svg> Kasir
+      </button>
+      <button class="pos-mobile-nav-item" type="button" data-pos-view="riwayat">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-receipt"></use></svg> Riwayat
+      </button>
+      <button class="pos-mobile-nav-item" type="button" data-pos-view="sesi">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wallet"></use></svg> Sesi kas
+      </button>
+      <button class="pos-mobile-nav-item" type="button" data-pos-view="stok">
+        <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-boxes"></use></svg> Stok
+      </button>
+    </nav>
+
+    <div class="pos-grid-shell">
+      <aside class="pos-rail" aria-label="Navigasi kasir">
+        <nav class="pos-nav">
+          <button class="pos-nav-item active" type="button" data-pos-view="kasir">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-list"></use></svg> Kasir
+          </button>
+          <button class="pos-nav-item" type="button" data-pos-view="riwayat">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-receipt"></use></svg> Riwayat
+            <span class="pos-nav-count" id="historyCount">6</span>
+          </button>
+          <button class="pos-nav-item" type="button" data-pos-view="sesi">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wallet"></use></svg> Sesi kas
+          </button>
+          <button class="pos-nav-item" type="button" data-pos-view="stok">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-boxes"></use></svg> Stok barang
+            <span class="pos-nav-count" id="stockNavCount">2</span>
+          </button>
+        </nav>
+
+        <div class="pos-rail-label">Kategori</div>
+        <div class="pos-categories" role="group" aria-label="Filter kategori produk">
+          <button class="pos-category is-active" type="button" data-category="all" aria-pressed="true">
+            <span class="pos-category-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-list"></use></svg></span> Semua
+          </button>
+          <button class="pos-category" type="button" data-category="Paket" aria-pressed="false">
+            <span class="pos-category-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-layers"></use></svg></span> Paket
+          </button>
+          <button class="pos-category" type="button" data-category="Makanan" aria-pressed="false">
+            <span class="pos-category-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-utensils"></use></svg></span> Makanan
+          </button>
+          <button class="pos-category" type="button" data-category="Minuman" aria-pressed="false">
+            <span class="pos-category-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-cup"></use></svg></span> Minuman
+          </button>
+          <button class="pos-category" type="button" data-category="Tambahan" aria-pressed="false">
+            <span class="pos-category-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-fries"></use></svg></span> Tambahan
+          </button>
+        </div>
+
+        <div class="pos-rail-foot">
+          <button class="pos-low-stock" type="button" data-pos-view="stok">
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+            <span><b id="lowStockCount">2 menu stok menipis</b><small>Buka halaman stok barang</small></span>
+          </button>
+          <div class="pos-rail-version">
+            <span>Prototype Gate 1 · v0.1</span>
+            <small>Data demo · tidak tersambung server</small>
+          </div>
+        </div>
+      </aside>
+
+      <main class="pos-main">
+        <section class="pos-view" data-pos-view="kasir" aria-labelledby="categoryTitle">
+          <div class="pos-main-head">
+            <div>
+              <div class="pos-title-row"><h1 id="categoryTitle">Semua menu</h1><span class="badge badge-neutral" id="productCount">10 produk</span></div>
+              <p>Pilih menu untuk pesanan demo. Harga dan ketersediaan adalah contoh.</p>
+            </div>
+            <div class="search-box pos-search">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
+              <input class="input" type="text" id="posSearch" placeholder="Cari produk..." aria-label="Cari produk">
+              <span class="kbd">Ctrl K</span>
+            </div>
+          </div>
+
+          <div class="pos-mobile-categories" role="group" aria-label="Filter kategori produk">
+            <button class="chip is-active" type="button" data-category="all" aria-pressed="true">Semua</button>
+            <button class="chip" type="button" data-category="Paket" aria-pressed="false">Paket</button>
+            <button class="chip" type="button" data-category="Makanan" aria-pressed="false">Makanan</button>
+            <button class="chip" type="button" data-category="Minuman" aria-pressed="false">Minuman</button>
+            <button class="chip" type="button" data-category="Tambahan" aria-pressed="false">Tambahan</button>
+          </div>
+
+          <div class="pos-products" id="productGrid"></div>
+
+          <div class="pos-main-foot">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+            <span>Diskon belum aktif. Stok demo berkurang otomatis saat pembayaran dan dikembalikan saat transaksi dibatalkan; tidak ada refund uang nyata.</span>
+          </div>
+        </section>
+
+        <section class="pos-view" data-pos-view="riwayat" aria-labelledby="historyPageTitle" hidden>
+          <div class="pos-page-head">
+            <div>
+              <h1 id="historyPageTitle">Riwayat transaksi</h1>
+              <p>Data demo perangkat kasir. Klik baris untuk melihat detail struk.</p>
+            </div>
+            <div class="pos-page-actions">
+              <select class="select" id="historyFilter" aria-label="Filter status sinkronisasi">
+                <option value="all">Semua transaksi</option>
+                <option value="synced">Tersinkron</option>
+                <option value="pending">Menunggu sync</option>
+                <option value="void">Dibatalkan</option>
+                <option value="refund">Refund</option>
+              </select>
+              <span class="badge badge-neutral" id="historyCountBadge">6 transaksi</span>
+            </div>
+          </div>
+          <div class="pos-page-body">
+            <article class="pos-page-card">
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Waktu</th><th>No. order</th><th>Jenis</th><th>Pembayaran</th><th>Status</th><th>Sinkron</th><th class="num">Total</th></tr></thead>
+                  <tbody id="historyBody"></tbody>
+                </table>
+              </div>
+              <div class="pos-history-note">
+                <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+                <span>Riwayat lama tetap menyimpan snapshot harga. Perubahan menu tidak mengubah transaksi yang sudah tercatat (POS-004).</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="pos-view" data-pos-view="sesi" aria-labelledby="sessionPageTitle" hidden>
+          <div class="pos-page-head">
+            <div>
+              <h1 id="sessionPageTitle">Sesi kas</h1>
+              <p>Shift aktif · <span id="sessionCashierName">Dina Pratama</span> · ringkasan kas dan antrean sinkronisasi.</p>
+            </div>
+            <div class="pos-page-actions">
+              <span class="badge badge-live"><span class="pill-dot"></span> Berjalan</span>
+            </div>
+          </div>
+          <div class="pos-page-body">
+            <div class="pos-session-grid">
+              <article class="pos-page-card">
+                <div class="pos-card-pad">
+                  <div class="session-hero">
+                    <span class="session-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wallet"></use></svg></span>
+                    <div><b>Shift aktif sejak 08.00</b><span id="sessionTransactionCount">6 transaksi demo</span></div>
+                  </div>
+                  <div class="session-metrics">
+                    <div><span>Kas awal</span><b id="sessionOpeningCash">Rp 300.000</b></div>
+                    <div><span>Penjualan tunai</span><b id="sessionCashSales">Rp 85.000</b></div>
+                    <div><span>QRIS manual</span><b id="sessionQrisSales">Rp 155.000</b></div>
+                    <div><span>Pengeluaran</span><b id="sessionExpenses">Rp 45.000</b></div>
+                  </div>
+                  <div class="session-lines">
+                    <div class="settings-row"><span>Kas seharusnya di laci</span><b id="sessionExpectedCash">Rp 340.000</b></div>
+                    <div class="settings-row"><span>QRIS terpisah dari laci</span><b id="sessionQrisSeparate">Rp 155.000</b></div>
+                    <div class="settings-row"><span>Antrean sync</span><b id="sessionQueue">2 transaksi</b></div>
+                  </div>
+                  <div class="notice notice-warning">
+                    <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+                    <span><strong>Belum dapat ditutup final.</strong> Aturan rekonsiliasi kas, koreksi selisih, dan approval penutupan sesi belum disetujui (CASH-003).</span>
+                  </div>
+                </div>
+              </article>
+              <aside class="pos-page-card">
+                <div class="pos-card-head">
+                  <div><h2>Detail shift</h2><p>Informasi sesi demo</p></div>
+                  <span class="badge badge-neutral">Gate 1</span>
+                </div>
+                <div class="pos-card-pad pos-session-actions">
+                  <div class="settings-row"><span>Kasir</span><select class="select" id="cashierSelect" aria-label="Pilih kasir aktif" style="max-width:190px"></select></div>
+                  <div class="settings-row"><span>Outlet</span><b>Outlet Melati</b></div>
+                  <div class="settings-row"><span>Jam shift</span><b>08.00–16.00</b></div>
+                  <div class="settings-row"><span>Perangkat</span><b>Kasir utama</b></div>
+                  <button class="btn btn-outline btn-block" type="button" id="sessionSyncBtn">Sinkronkan antrean</button>
+                  <button class="btn btn-primary btn-block" type="button" disabled>Tutup sesi (belum aktif)</button>
+                  <p class="pos-page-hint">Rekonsiliasi dan approval penutupan sesi belum final.</p>
+                </div>
+              </aside>
+            </div>
+            <article class="pos-page-card pos-session-recent">
+              <div class="pos-card-head">
+                <div><h2>Transaksi terbaru</h2><p>Tiga transaksi terakhir pada sesi demo.</p></div>
+                <button class="btn btn-ghost btn-sm" type="button" data-pos-view="riwayat">Lihat riwayat</button>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Waktu</th><th>No. order</th><th>Pembayaran</th><th>Status</th><th>Sinkron</th><th class="num">Total</th></tr></thead>
+                  <tbody id="sessionRecentBody"></tbody>
+                </table>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="pos-view" data-pos-view="stok" aria-labelledby="stockPageTitle" hidden>
+          <div class="pos-page-head">
+            <div>
+              <h1 id="stockPageTitle">Stok barang</h1>
+              <p>Pantau ketersediaan menu. Angka stok masih data demo dan belum terhubung ke backend.</p>
+            </div>
+            <div class="pos-page-actions">
+              <span class="badge badge-warning" id="stockLowBadge">2 perlu dicek</span>
+            </div>
+          </div>
+          <div class="pos-page-body">
+            <div class="pos-stock-metrics">
+              <div><span>Total produk</span><b id="stockTotal">12</b></div>
+              <div><span>Aman</span><b id="stockSafe">9</b></div>
+              <div><span>Menipis</span><b id="stockLow">2</b></div>
+              <div><span>Habis</span><b id="stockOut">0</b></div>
+            </div>
+            <article class="pos-page-card">
+              <div class="pos-page-toolbar">
+                <div class="search-box pos-stock-search">
+                  <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
+                  <input class="input" type="text" id="stockSearch" placeholder="Cari nama atau kategori..." aria-label="Cari produk di halaman stok">
+                </div>
+                <select class="select" id="stockFilter" aria-label="Filter status stok">
+                  <option value="all">Semua stok</option>
+                  <option value="low">Menipis</option>
+                  <option value="out">Habis</option>
+                </select>
+                <span class="pos-toolbar-count" id="stockCountLabel">12 produk</span>
+              </div>
+              <div class="table-wrap">
+                <table class="table">
+                  <thead><tr><th>Produk</th><th>Kategori</th><th>Harga</th><th>Stok</th><th>Status</th></tr></thead>
+                  <tbody id="stockBody"></tbody>
+                </table>
+              </div>
+              <div class="pos-page-note">
+                <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+                <span>Stok demo berkurang otomatis dari transaksi POS. Koreksi stok manual dan rekonsiliasi final belum aktif.</span>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <aside class="pos-ticket" aria-labelledby="ticketTitle">
+        <div class="pos-ticket-head">
+          <div>
+            <h2 id="ticketTitle">Pesanan baru</h2>
+            <p id="ticketItemCount">Belum ada item</p>
+          </div>
+          <button class="btn btn-ghost btn-sm" type="button" id="clearCartBtn" disabled>
+            <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-trash"></use></svg> Hapus
+          </button>
+        </div>
+
+        <div class="pos-ticket-scroll">
+          <div class="pos-order-type" role="group" aria-label="Jenis pesanan">
+            <button class="pos-order-type-btn is-active" type="button" data-order-type="Dine-in" aria-pressed="true">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-store"></use></svg>
+              <span>Dine-in</span>
+            </button>
+            <button class="pos-order-type-btn" type="button" data-order-type="Takeaway" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bag"></use></svg>
+              <span>Takeaway</span>
+            </button>
+            <button class="pos-order-type-btn" type="button" data-order-type="Delivery" aria-pressed="false">
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bike"></use></svg>
+              <span>Delivery</span>
+            </button>
+          </div>
+
+          <div class="pos-cart" id="cartItems"></div>
+
+          <div class="pos-cart-empty" id="cartEmpty">
+            <div class="empty-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-bag"></use></svg></div>
+            <h3>Belum ada pesanan</h3>
+            <p>Klik produk di sebelah kiri untuk menambahkan.</p>
+            <button class="btn btn-outline btn-sm" type="button" id="loadSampleFromEmpty">Muat contoh pesanan</button>
+          </div>
+
+          <div class="field pos-note-field">
+            <label for="orderNote">Catatan pesanan <span class="muted tiny">(opsional)</span></label>
+            <textarea class="textarea" id="orderNote" placeholder="Contoh: tanpa sambal, level pedas sedang..."></textarea>
+          </div>
+        </div>
+
+        <div class="pos-ticket-summary">
+          <div class="pos-summary-line"><span>Subtotal</span><b id="subtotalValue">Rp 0</b></div>
+          <div class="pos-summary-line is-blocked"><span>Diskon umum <span class="badge badge-concept">BLOCKED</span></span><b>—</b></div>
+          <div class="pos-summary-line" id="memberDiscountRow" hidden><span>Poin member</span><b id="memberDiscountTicket">—</b></div>
+          <div class="pos-summary-total"><span>Total</span><b id="totalValue">Rp 0</b></div>
+          <button class="btn btn-ghost btn-sm btn-block" type="button" id="openHoldBtn" style="margin-bottom:6px" hidden>Lihat order ditahan (0)</button>
+          <button class="btn btn-outline btn-block" type="button" id="holdOrderBtn" style="margin-bottom:8px" disabled>Simpan order (0/5)</button>
+          <button class="btn btn-primary btn-lg btn-block" type="button" id="payButton" disabled>
+            <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-arrow-right"></use></svg>
+            Lanjut pembayaran
+          </button>
+          <div class="pos-ticket-hint">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+            <span>Stok demo berkurang otomatis saat pembayaran. Penjualan tetap diizinkan meski stok minus, dengan warning.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <dialog class="modal" id="paymentDialog" aria-labelledby="paymentDialogTitle">
+    <div class="modal-panel pos-payment-panel">
+      <div class="modal-head">
+        <div><div class="modal-title" id="paymentDialogTitle">Pembayaran</div><div class="modal-sub" id="paymentDialogSub">Pilih metode pembayaran demo</div></div>
+        <button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="pos-payment-grid">
+          <div>
+            <div class="member-pay-card">
+              <div>
+                <span class="settings-label">Member &amp; poin</span>
+                <span class="settings-desc" id="memberPayHint">Pilih member untuk mengumpulkan atau menukar poin.</span>
+              </div>
+              <button class="btn btn-outline btn-sm" type="button" id="chooseMemberBtn">Pilih member</button>
+            </div>
+            <div class="member-pay-details" id="memberPayDetails" hidden>
+              <div class="member-pay-head">
+                <div><b id="memberPayName">—</b><span id="memberPayPoints">0 poin</span></div>
+                <button class="btn btn-ghost btn-sm" type="button" id="clearMemberBtn">Ganti</button>
+              </div>
+              <div class="field">
+                <label for="redeemPoints">Tukar poin</label>
+                <input class="input" id="redeemPoints" type="number" min="0" step="100" inputmode="numeric" placeholder="0">
+              </div>
+              <div class="pay-change" id="memberDiscountWrap">
+                <span>Potongan poin</span>
+                <b id="memberDiscountValue">Rp 0</b>
+              </div>
+            </div>
+            <div class="field-label" style="margin-top:14px">Metode pembayaran</div>
+            <div class="pay-method-grid">
+              <button class="pay-method" type="button" data-payment-method="Tunai" aria-pressed="false">
+                <span class="pay-method-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-banknote"></use></svg></span>
+                <span><b>Tunai</b><small>Bayar dengan uang tunai</small></span>
+              </button>
+              <button class="pay-method" type="button" data-payment-method="QRIS manual" aria-pressed="false">
+                <span class="pay-method-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-qr"></use></svg></span>
+                <span><b>QRIS manual</b><small>Kasir memeriksa bukti</small></span>
+              </button>
+              <button class="pay-method" type="button" data-payment-method="Split" aria-pressed="false">
+                <span class="pay-method-icon"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wallet"></use></svg></span>
+                <span><b>Tunai + QRIS</b><small>Split pembayaran</small></span>
+              </button>
+            </div>
+
+            <div class="pay-fields" id="cashPaymentFields" hidden>
+              <div class="field">
+                <label for="cashReceived">Uang diterima (Rp)</label>
+                <input class="input" id="cashReceived" type="number" min="0" step="1000" inputmode="numeric" placeholder="0">
+              </div>
+              <div class="cash-quick" role="group" aria-label="Nominal cepat">
+                <button class="chip" type="button" data-cash-amount="exact">Uang pas</button>
+                <button class="chip" type="button" data-cash-amount="50000">Rp 50.000</button>
+                <button class="chip" type="button" data-cash-amount="100000">Rp 100.000</button>
+                <button class="chip" type="button" data-cash-amount="150000">Rp 150.000</button>
+              </div>
+              <div class="pay-change" id="cashChangeWrap">
+                <span>Kembalian</span>
+                <b id="cashChange">Rp 0</b>
+              </div>
+            </div>
+
+            <div class="pay-fields" id="qrisPaymentFields" hidden>
+              <div class="qris-box">
+                <div class="qris-code"><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-qr"></use></svg></div>
+                <div>
+                  <h3>QRIS statis toko</h3>
+                  <p>Pelanggan memindai QRIS di perangkat lain. Kasir memeriksa bukti pembayaran secara manual; tidak ada verifikasi otomatis pada prototype.</p>
+                </div>
+              </div>
+              <label class="qris-check">
+                <input type="checkbox" id="qrisVerified">
+                <span>Saya sudah memeriksa bukti QRIS manual.</span>
+              </label>
+            </div>
+
+            <div class="pay-fields" id="splitPaymentFields" hidden>
+              <div class="form-grid cols-2">
+                <div class="field">
+                  <label for="splitCash">Nominal tunai (Rp)</label>
+                  <input class="input" id="splitCash" type="number" min="0" step="100" inputmode="numeric" placeholder="0">
+                </div>
+                <div class="field">
+                  <label for="splitQris">Nominal QRIS (Rp)</label>
+                  <input class="input" id="splitQris" type="number" min="0" step="100" inputmode="numeric" placeholder="0">
+                </div>
+              </div>
+              <div class="pay-change" id="splitRoundingWrap">
+                <span>Pembulatan tunai <small id="splitRoundingNote">ke Rp100 terdekat</small></span>
+                <b id="splitRounding">Rp 0</b>
+              </div>
+              <div class="field" style="margin-top:12px">
+                <label for="splitCashReceived">Uang tunai diterima (Rp)</label>
+                <input class="input" id="splitCashReceived" type="number" min="0" step="1000" inputmode="numeric" placeholder="0">
+              </div>
+              <div class="pay-change" id="splitChangeWrap">
+                <span>Kembalian tunai</span>
+                <b id="splitChange">Rp 0</b>
+              </div>
+              <div class="pay-change" id="splitDiffWrap">
+                <span>Selisih split</span>
+                <b id="splitDiff">Rp 0</b>
+              </div>
+              <label class="qris-check">
+                <input type="checkbox" id="splitQrisVerified">
+                <span>Saya sudah memeriksa bukti QRIS manual untuk bagian QRIS.</span>
+              </label>
+            </div>
+
+            <div class="notice notice-warning" id="paymentOfflineNotice" hidden>
+              <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-wifi-off"></use></svg>
+              <span>Mode offline aktif. Transaksi akan ditandai menunggu sinkronisasi dan disimpan hanya di sesi browser demo.</span>
+            </div>
+          </div>
+
+          <aside class="payment-bill">
+            <h3>Ringkasan pesanan</h3>
+            <div id="paymentSummary"></div>
+            <div class="payment-bill-item is-discount" id="paymentMemberDiscountRow" hidden><span>Poin member</span><span id="paymentMemberDiscount">−Rp 0</span></div>
+            <div class="payment-bill-total"><span>Total</span><b id="paymentTotal">Rp 0</b></div>
+            <p class="tiny muted">Diskon belum disetujui dan tidak dapat diterapkan pada prototype.</p>
+          </aside>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" type="button" data-close-dialog>Batal</button>
+        <button class="btn btn-primary" type="button" id="confirmPayment" disabled>Konfirmasi pembayaran</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="receiptDialog" aria-labelledby="receiptDialogTitle">
+    <div class="modal-panel receipt-panel">
+      <div class="modal-head">
+        <div><div class="modal-title" id="receiptDialogTitle">Struk transaksi</div><div class="modal-sub" id="receiptDialogSub">Demo lokal</div></div>
+        <button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button>
+      </div>
+      <div class="modal-body" id="receiptBody"></div>
+      <div class="modal-foot receipt-foot">
+        <button class="btn btn-ghost" type="button" id="voidReceiptBtn" disabled>Batalkan transaksi</button>
+        <button class="btn btn-outline" type="button" id="printReceiptBtn"><svg class="icon icon-sm" aria-hidden="true"><use href="assets/icons.svg#i-printer"></use></svg> Cetak / PDF</button>
+        <button class="btn btn-primary" type="button" id="doneReceiptBtn">Transaksi baru</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="memberDialog" aria-labelledby="memberDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div><div class="modal-title" id="memberDialogTitle">Pilih member</div><div class="modal-sub" id="memberDialogSub">Cari nama atau nomor telepon</div></div>
+        <button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="search-box" style="margin-bottom:12px">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-search"></use></svg>
+          <input class="input" type="text" id="memberSearchPos" placeholder="Cari nama atau nomor HP..." aria-label="Cari member">
+        </div>
+        <div class="member-list" id="memberList"></div>
+        <div class="notice notice-info" style="margin-top:12px">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+          <span>Data member dan aturan poin dikelola di Admin Panel pada browser yang sama.</span>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="holdDialog" aria-labelledby="holdDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div><div class="modal-title" id="holdDialogTitle">Order ditahan</div><div class="modal-sub" id="holdDialogSub">Maksimal 5 order aktif</div></div>
+        <button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="notice notice-info" style="margin-bottom:12px">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-info"></use></svg>
+          <span>Order ditahan hanya tersimpan di browser demo dan tidak masuk Admin sampai dibayar.</span>
+        </div>
+        <div id="heldOrderList" class="held-order-list"></div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="voidDialog" aria-labelledby="voidDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div><div class="modal-title" id="voidDialogTitle">Batalkan transaksi?</div><div class="modal-sub" id="voidDialogSub">Transaksi demo</div></div>
+        <button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="pos-void-summary" id="voidSummary"></div>
+        <div class="notice notice-warning">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+          <span>Pembatalan ini hanya simulasi UI. Stok demo dikembalikan, tetapi tidak ada refund uang atau sinkronisasi server nyata.</span>
+        </div>
+        <div class="field">
+          <label for="voidReason">Alasan pembatalan</label>
+          <select class="select" id="voidReason">
+            <option value="Pelanggan membatalkan">Pelanggan membatalkan</option>
+            <option value="Salah input pesanan">Salah input pesanan</option>
+            <option value="Pembayaran gagal">Pembayaran gagal</option>
+            <option value="Pesanan duplikat">Pesanan duplikat</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="voidNote">Catatan <span class="muted tiny">(wajib untuk alasan Lainnya)</span></label>
+          <textarea class="textarea" id="voidNote" placeholder="Tambahkan catatan pembatalan..."></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" type="button" data-close-dialog>Kembali</button>
+        <button class="btn btn-danger" type="button" id="confirmVoidBtn">Batalkan transaksi</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal sync-modal" id="syncDialog" aria-labelledby="syncTitle" aria-describedby="syncStatus">
+    <div class="sync-panel" id="syncPanel">
+      <div class="sync-orb" id="syncOrb" role="progressbar" aria-label="Progres sinkronisasi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="sync-spinner" aria-hidden="true"></span>
+        <span class="sync-percent" id="syncPercent">0%</span>
+      </div>
+      <h2 class="sync-title" id="syncTitle">Menyinkronkan data</h2>
+      <p class="sync-status" id="syncStatus" aria-live="polite">Menyiapkan antrean lokal…</p>
+      <div class="sync-detail" id="syncDetail">0 dari 0 transaksi</div>
+      <div class="sync-demo-note">Simulasi UI · tidak ada server nyata yang dihubungi.</div>
+      <button class="btn btn-primary btn-block" type="button" id="syncCloseBtn" data-close-dialog hidden>Selesai</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="clearCartDialog" aria-labelledby="clearCartTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div><div class="modal-title" id="clearCartTitle">Kosongkan pesanan?</div><div class="modal-sub">Semua item pada draft pesanan akan dihapus.</div></div>
+        <button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="notice notice-warning">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+          <span>Tindakan ini hanya mengosongkan draft demo dan tidak memengaruhi transaksi yang sudah tercatat.</span>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" type="button" data-close-dialog>Batal</button>
+        <button class="btn btn-danger" type="button" id="confirmClearCart">Kosongkan draft</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="demoDialog" aria-labelledby="demoDialogTitle">
+    <div class="modal-panel">
+      <div class="modal-head">
+        <div><div class="modal-title" id="demoDialogTitle">Kontrol demo</div><div class="modal-sub">Uji kondisi kasir tanpa mengubah data nyata</div></div>
+        <button class="modal-close" type="button" aria-label="Tutup" data-close-dialog><svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-x"></use></svg></button>
+      </div>
+      <div class="modal-body">
+        <div class="settings-row">
+          <div><span class="settings-label">Simulasikan offline</span><span class="settings-desc">Transaksi baru akan menunggu sinkronisasi.</span></div>
+          <button class="switch" type="button" role="switch" aria-checked="false" aria-label="Simulasikan offline" id="demoOfflineToggle"></button>
+        </div>
+        <div class="settings-row">
+          <div><span class="settings-label">Antrean sinkronisasi</span><span class="settings-desc" id="demoQueueText">2 transaksi menunggu.</span></div>
+          <button class="btn btn-outline btn-sm" type="button" id="demoSyncBtn">Sinkronkan</button>
+        </div>
+        <div class="settings-row">
+          <div><span class="settings-label">Contoh pesanan</span><span class="settings-desc">Muat 3 item demo ke draft pesanan.</span></div>
+          <button class="btn btn-outline btn-sm" type="button" id="loadSampleBtn">Muat contoh</button>
+        </div>
+        <div class="notice notice-warning" style="margin-top:12px">
+          <svg class="icon" aria-hidden="true"><use href="assets/icons.svg#i-alert"></use></svg>
+          <span>Reset demo mengembalikan riwayat contoh, antrean, dan sesi kas ke kondisi awal Gate 1.</span>
+        </div>
+        <div class="settings-actions" style="justify-content:flex-end">
+          <button class="btn btn-danger btn-sm" type="button" id="resetDemoBtn">Reset demo</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="assets/common.js"></script>
+  <script src="assets/store.js?v=2"></script>
+  <script src="assets/pos.js?v=8"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Avatar demo Dina Pratama">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e8f3fa"/>
+      <stop offset="1" stop-color="#cfe8f6"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1588b8"/>
+      <stop offset="1" stop-color="#0f5f84"/>
+    </linearGradient>
+  </defs>
+  <rect width="160" height="160" rx="80" fill="url(#bg)"/>
+  <circle cx="80" cy="62" r="27" fill="#f3c8a5"/>
+  <path d="M53 64c0-22 11-34 27-34s27 12 27 34c0-9-12-15-27-15S53 55 53 64Z" fill="#172f49"/>
+  <path d="M56 55c6 8 15 12 24 12s18-4 24-12" fill="none" stroke="#172f49" stroke-width="7" stroke-linecap="round"/>
+  <path d="M34 144c3-27 20-44 46-44s43 17 46 44v16H34Z" fill="url(#shirt)"/>
+  <path d="M70 102h20l-10 17Z" fill="#f8fbfd"/>
+  <circle cx="68" cy="64" r="2.6" fill="#172f49"/>
+  <circle cx="92" cy="64" r="2.6" fill="#172f49"/>
+  <path d="M72 76c4 3 12 3 16 0" fill="none" stroke="#b56b55" stroke-width="2.6" stroke-linecap="round"/>
+</svg>
